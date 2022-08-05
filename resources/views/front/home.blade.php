@@ -15,6 +15,10 @@
 				</div>
 			@endif
 
+			@if (session()->has('account_not_found'))
+				<div class="alert alert-danger text-center mt-5">{{ session()->get('account_not_found') }}</div>
+			@endif
+
 			<div class="search-container">
 
 				<!-- Form -->

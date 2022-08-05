@@ -22,6 +22,10 @@
                         <div class="alert alert-danger">{{ session()->get('account_disabled') }}</div>
                     @endif
 
+                    @if (session()->has('account_not_found'))
+                        <div class="alert alert-danger">{{ session()->get('account_not_found') }}</div>
+                    @endif
+
                     <form method="post" action="{{ route('login') }}" class="login">
                         @csrf
                         @method('POST')
@@ -57,11 +61,11 @@
                         Don't have an account ? <a href="{{ route('register') }}">Click here to sign up</a>
                     </div>
                     
-                    <div class="">
+                    <div class="mb-5">
                         <span>Or use one of the following drivers:</span>
                         <ul class="social-icons">
                             @foreach ($drivers as $key => $driver)
-                                <li><a class="{{ $key }}" href="#"><i class="icon-{{ $key }}"></i></a></li>
+                                <li><a class="{{ $key }}" href="{{ route('socialite.redirect', $driver) }}"><i class="icon-{{ $key }}"></i></a></li>
                             @endforeach
                         </ul>
                     </div>

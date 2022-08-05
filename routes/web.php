@@ -18,7 +18,7 @@ Route::get('/', [MainController::class, 'home'])->name('home');
 
 
 // Authentication
-require_once(__DIR__ . DIRECTORY_SEPARATOR . 'auth.php');
+require __DIR__ . DIRECTORY_SEPARATOR . 'auth.php';
 
 // FALLBACK
 Route::fallback(fn() => redirect()->route('home'));

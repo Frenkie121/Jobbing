@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\{EmailVerificationController, LoginController, RegisterController, ResetPasswordController};
+use App\Http\Controllers\Auth\{EmailVerificationController, LoginController, RegisterController, ResetPasswordController, SocialiteController};
 
 Route::controller(LoginController::class)->group(function(){
     Route::get('login', 'login')->middleware('guest')->name('login');
@@ -32,4 +32,10 @@ Route::name('password.')->middleware('guest')->controller(ResetPasswordControlle
     Route::get('/reset-password/{token}', 'resetPassword')->name('reset');
 
     Route::post('/reset-password', 'updatePassword')->name('update');
+});
+
+Route::prefix('auth')->name('socialite.')->controller(SocialiteController::class)->group(function(){
+    Route::get('/redirect/{driver}', 'redirect')->name('redirect');
+
+    Route::get('/{driver}/callback', 'handle')->name('callback');
 });
