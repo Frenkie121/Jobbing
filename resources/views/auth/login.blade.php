@@ -18,8 +18,6 @@
                 <!-- Login -->
                 <div class="tab-content" id="tab1" style="display: none;">
 
-                    <h3 class="margin-bottom-10 margin-top-10">Login</h3>
-
                     @if (session()->has('account_disabled'))
                         <div class="alert alert-danger">{{ session()->get('account_disabled') }}</div>
                     @endif
@@ -47,14 +45,17 @@
                         <label for="rememberme" class="rememberme">
                         <input name="rememberme" type="checkbox" id="rememberme" @checked(old('rememberme')) /> Remember Me</label>
 
-                        <p class="form-row">
-                            <input type="submit" class="button" name="login" value="Login" />
-                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a class="mt-4" href="{{ route('password.request') }}">Password forgotten ?</a>
+                            <p class="form-row">
+                                <input type="submit" class="button" name="login" value="Login" />
+                            </p>
+                        </div>
                     </form>
 
-                    <p class="lost_password">
-                        <a href="#">Lost Your Password?</a>
-                    </p>
+                    <div class="mb-3">
+                        Don't have an account ? <a href="{{ route('register') }}">Click here to sign up</a>
+                    </div>
                     
                     <div class="">
                         <span>Or use one of the following drivers:</span>

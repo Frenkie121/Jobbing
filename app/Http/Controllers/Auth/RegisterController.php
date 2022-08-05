@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\Freelance;
-use App\Models\Role;
+use App\Models\{Customer, Freelance, Role, User};
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +21,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:75',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
             'role' => 'required|in:2,3'
         ]);
@@ -38,8 +37,10 @@ class RegisterController extends Controller
         }
 
         // Mail
+        event(new Registered($user));
+
         Auth::login($user);
         
-        return redirect()->route('home');
+        return redirect('/')->with('success', 'Smthg');
     }
 }

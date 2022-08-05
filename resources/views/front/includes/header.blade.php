@@ -64,8 +64,8 @@
                             </ul>
                         </li>
                     @else
-                        <li><a href="{{ route('login') }}"><i class="fa fa-user"></i> Log In</a></li>
-                        <li><a href="{{ route('register') }}"><i class="fa fa-lock"></i> Sign Up</a></li>
+                        <li><a href="{{ route('login') }}" @if(Route::is('login')) id="current" @endif><i class="fa fa-user"></i> Log In</a></li>
+                        <li><a href="{{ route('register') }}" @if(Route::is('register')) id="current" @endif><i class="fa fa-lock"></i> Sign Up</a></li>
                     @endauth
                 </ul>
 

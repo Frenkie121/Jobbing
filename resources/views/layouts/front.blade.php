@@ -18,9 +18,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/colors/green.css') }}" id="colors">
 
-<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 

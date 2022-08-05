@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Front\MainController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 
+
 // Authentication
-Route::get('login', [LoginController::class, 'login'])->name('login');
-Route::post('login', [LoginController::class, 'authenticate'])->name('login');
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('register', [RegisterController::class, 'registerView'])->name('register');
-Route::post('register', [RegisterController::class, 'register'])->name('register');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'auth.php');
+
+// FALLBACK
+Route::fallback(fn() => redirect()->route('home'));

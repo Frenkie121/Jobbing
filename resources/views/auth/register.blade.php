@@ -58,10 +58,16 @@
                             <div class="alert text-danger">{{ $message }}</div>
                         @enderror
 
-                        <p class="form-row">
-                            <input type="submit" class="button" name="register" value="Register" />
-                        </p>
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <p class="form-row">
+                                <input type="submit" class="button" value="Register" />
+                            </p>
+                        </div>
                     </form>
+                    <div class="d-flex justify-content-right">
+                        <span>Already have an account? <a href="{{ route('login') }}">Click here to sign in</a></span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,7 +9,12 @@
 <div id="banner" style="background: url(assets/images/banner-home-01.jpg)">
 	<div class="container">
 		<div class="sixteen columns">
-			
+			@if (session()->has('success'))
+				<div class="alert alert-info text-center mt-5">
+					<span>Thank you for your registration. An email has been sent to you to verify your email address. <a href="{{ route('verification.resend') }}">Click here if you have not receive the link</a>.</span>
+				</div>
+			@endif
+
 			<div class="search-container">
 
 				<!-- Form -->
