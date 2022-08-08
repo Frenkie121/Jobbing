@@ -23,10 +23,11 @@ class JobFactory extends Factory
             'sub_category_id' => fake()->numberBetween(1, 10),
             'title' => $title,
             'slug' => Str::slug($title),
-            'type' => fake()->numberBetween(0, 4),
+            'type' => fake()->numberBetween(1, 4),
             'description' => fake()->text(1000),
             'salary' => fake()->numberBetween(500, 5000) * 100,
             'deadline' => fake()->dateTimeBetween('+ 1 weeks', '+ 1 months'),
+            'location' => fake()->city()
         ];
     }
 }

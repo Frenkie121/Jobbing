@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title', 75);
             $table->string('slug');
             $table->string('type');
+            $table->string('location');
             $table->text('description');
             $table->float('salary');
             $table->date('deadline');
