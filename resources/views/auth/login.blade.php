@@ -3,6 +3,10 @@
 @section('subtitle', 'Login')
 
 @section('content')
+
+    @push('css')
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    @endpush
     
     <!-- Titlebar ================================================== -->
     <x-front.title-bar title="Login" previous="Home" previousUrl="{{ route('home') }}" />

@@ -15,10 +15,11 @@
 <!-- CSS
 ================================================== -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/colors/green.css') }}" id="colors">
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+@stack('css')
 
 </head>
 
@@ -61,6 +62,8 @@
     <script src="{{ asset('assets/scripts/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('assets/scripts/jquery.jpanelmenu.js') }}"></script>
     <script src="{{ asset('assets/scripts/stacktable.js') }}"></script>
+
+    @stack('js')
 
 </body>
 </html>

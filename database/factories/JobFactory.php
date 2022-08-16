@@ -27,7 +27,8 @@ class JobFactory extends Factory
             'description' => fake()->text(1000),
             'salary' => fake()->numberBetween(500, 5000) * 100,
             'deadline' => fake()->dateTimeBetween('+ 1 weeks', '+ 1 months'),
-            'location' => fake()->city()
+            'location' => fake()->city(),
+            'duration' => fake()->numberBetween(4, 32),
         ];
     }
 }

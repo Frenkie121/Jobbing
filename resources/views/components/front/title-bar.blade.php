@@ -8,6 +8,7 @@
 					<li>You are here:</li>
 					<li><a href="{{ $previousUrl }}">{{ $previous }}</a></li>
 					<li>{{ $title }}</li>
+					{{ $slot }}
 				</ul>
 			</nav>
 		</div>

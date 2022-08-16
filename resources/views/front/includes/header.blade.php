@@ -12,19 +12,12 @@
                 <ul id="responsive">
 
                     <li><a href="{{ route('home') }}" @if(Route::is('home')) id="current" @endif>Home</a></li>
+                    
+                    <li><a href="{{ route('jobs.index') }}" @if(Route::is('jobs.index')  || Route::is('jobs.show')) id="current" @endif>Jobs</a></li>
+                    
+                    <li><a href="{{ route('categories') }}" @if(Route::is('categories')) id="current" @endif>Categories</a></li>
 
-                    <li><a href="#">Pages</a>
-                        <ul>
-                            <li><a href="job-page.html">Job Page</a></li>
-                            <li><a href="job-page-alt.html">Job Page Alternative</a></li>
-                            <li><a href="resume-page.html">Resume Page</a></li>
-                            <li><a href="shortcodes.html">Shortcodes</a></li>
-                            <li><a href="pricing-tables.html">Pricing Tables</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="#">For Candidates</a>
+                    {{-- <li><a href="#">For Candidates</a>
                         <ul>
                             <li><a href="browse-jobs.html">Browse Jobs</a></li>
                             <li><a href="browse-categories.html">Browse Categories</a></li>
@@ -32,7 +25,7 @@
                             <li><a href="manage-resumes.html">Manage Resumes</a></li>
                             <li><a href="job-alerts.html">Job Alerts</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li><a href="#">For Employers</a>
                         <ul>

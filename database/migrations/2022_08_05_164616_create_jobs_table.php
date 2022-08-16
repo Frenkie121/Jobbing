@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('slug');
             $table->string('type');
             $table->string('location');
+            $table->string('image')->default('job-default.png');
             $table->text('description');
             $table->float('salary');
             $table->date('deadline');
+            $table->integer('duration');
             $table->date('starts_at')->nullable();
             $table->date('ends_at')->nullable();
             $table->timestamps();

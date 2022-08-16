@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Front\MainController;
+use App\Http\Controllers\Front\{JobController, MainController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'home'])->name('home');
+
+// Jobs
+Route::resource('jobs', JobController::class);
+Route::get('categories', [MainController::class, 'categories'])->name('categories');
+Route::get('categories/{subCategory:slug}', [MainController::class, 'category'])->name('category');
 
 
 // Authentication

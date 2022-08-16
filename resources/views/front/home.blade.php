@@ -62,33 +62,30 @@
 		<div class="clearfix"></div>
 		<div class="margin-top-30"></div>
 
-		<a href="browse-categories.html" class="button centered">Browse All Categories</a>
+		<a href="{{ route('categories') }}" class="button centered">Browse All Categories</a>
 		<div class="margin-bottom-50"></div>
 	</div>
 </div>
 
 
-<div class="mx-4 px-2 row">
+<div class="container">
 	
 	<!-- Recent Jobs -->
-	<div class="col-md-8">
+	<div class="eleven columns">
 		<div class="padding-right">
 			<h3 class="margin-bottom-25">Recent Jobs</h3>
 			<ul class="job-list">
 				@forelse ($jobs as $job)
-					<li class="@if($loop->first)highlighted @endif"><a href="job-page.html">
-						<img src="{{ asset('assets/images/job-list-logo-01.png') }}" alt="{{ $job->title }}">
-						<div class="job-list-content">
-							<h4>{{ $job->title }} <span class="{{ $job->type_class }}">{{ $job->type }}</span></h4>
-							<div class="job-icons">
-								<span><i class="fa fa-briefcase"></i> King</span>
-								<span><i class="fa fa-map-marker"></i> {{ $job->location }}</span>
-								<span><i class="fa fa-money"></i> {{ $job->salary }} /hour</span>
-							</div>
-						</div>
-						</a>
-						<div class="clearfix"></div>
-					</li>
+					<x-job.single-job 
+						classType="{{ $job->type_class }}"
+						title="{{ $job->title }}" 
+						type="{{ $job->type }}" 
+						location="{{ $job->location }}"
+						salary="{{ $job->salary }}"
+						description="{{ $job->description }}"
+						url="{{ route('jobs.show', $job->slug) }}"
+						image="{{ $job->image }}"
+					/>
 				@empty
 					<div class="text-center text-info">Jobs coming soon...</div>
 				@endforelse
@@ -100,7 +97,7 @@
 	</div>
 
 	<!-- Job Spotlight -->
-	<div class="col-md-4">
+	<div class="five columns">
 		<h3 class="margin-bottom-5">Job Spotlight</h3>
 
 		<!-- Navigation -->
