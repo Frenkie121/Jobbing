@@ -42,9 +42,15 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ], $request->rememberme)) {
+            
+            $redirect = match($user->role_id){
+                3 => 'profile',
+                // default => '/'
+            };
+
             $request->session()->regenerate();
  
-            return redirect()->intended();
+            return redirect()->intended($redirect);
         }
 
         return back()->withInput()

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('freelance_id')->constrained();
             $table->string('company', 100);
             $table->string('job_title', 100);
+            $table->string('job_description', 100);
             $table->date('started_at');
             $table->date('ended_at')->nullable();
             $table->timestamps();

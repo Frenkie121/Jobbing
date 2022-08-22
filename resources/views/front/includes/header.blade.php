@@ -44,7 +44,7 @@
                     @auth
                         <li><a href="#"><i class="fa fa-user"></i> {{ auth()->user()->name }}</a>
                             <ul>
-                                <li><a href="job-page.html">Job Page</a></li>
+                                <li><a href="{{ route('profile.index') }}">Profile</a></li>
                                 <li><a href="job-page-alt.html">Job Page Alternative</a></li>
                                 <li><a href="resume-page.html">Resume Page</a></li>
                                 <li><a href="{{ route('logout') }}" 
