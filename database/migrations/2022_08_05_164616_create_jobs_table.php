@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('sub_category_id')->constrained();
             $table->string('title', 75);
             $table->string('slug');
-            $table->string('type');
-            $table->string('location');
+            $table->integer('type');
+            $table->string('location')->nullable();
             $table->string('image')->default('job-default.png');
             $table->text('description');
             $table->float('salary');
@@ -28,6 +28,9 @@ return new class extends Migration
             $table->integer('duration');
             $table->date('starts_at')->nullable();
             $table->date('ends_at')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('company_url')->nullable();
+            $table->string('company_description')->nullable();
             $table->timestamps();
         });
     }

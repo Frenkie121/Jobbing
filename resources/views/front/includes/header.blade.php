@@ -44,7 +44,13 @@
                     @auth
                         <li><a href="#"><i class="fa fa-user"></i> {{ auth()->user()->name }}</a>
                             <ul>
-                                <li><a href="{{ route('profile.index') }}">Profile</a></li>
+                                <li>
+                                    @if (auth()->user()->role_id === 3)
+                                        <a href="{{ route('profile.index') }}">Profile</a>
+                                    @elseif (auth()->user()->role_id === 2)
+                                        <a href="{{ route('jobs.create') }}">Add Job</a>
+                                    @endif
+                                </li>
                                 <li><a href="job-page-alt.html">Job Page Alternative</a></li>
                                 <li><a href="resume-page.html">Resume Page</a></li>
                                 <li><a href="{{ route('logout') }}" 

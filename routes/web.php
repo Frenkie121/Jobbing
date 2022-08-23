@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Front\{JobController, MainController};
-use App\Http\Controllers\Front\Freelance\ProfileController;
+use App\Http\Controllers\Front\Freelance\{ProfileController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +19,9 @@ Route::get('/', [MainController::class, 'home'])->name('home');
 
 // Jobs
 Route::resource('jobs', JobController::class);
+Route::get('jobs/create/preview', [JobController::class, 'preview'])->name('jobs.preview');
+Route::post('jobs/create/preview', [JobController::class, 'submit'])->name('jobs.submit');
+
 Route::prefix('categories')->controller(MainController::class)->group(function(){
     Route::get('', 'categories')->name('categories');
     Route::get('{subCategory:slug}', 'category')->name('category');

@@ -44,8 +44,9 @@ class LoginController extends Controller
         ], $request->rememberme)) {
             
             $redirect = match($user->role_id){
+                2 => 'jobs/create',
                 3 => 'profile',
-                // default => '/'
+                default => '/'
             };
 
             $request->session()->regenerate();

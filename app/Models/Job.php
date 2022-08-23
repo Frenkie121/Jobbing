@@ -11,6 +11,8 @@ class Job extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['customer_id', 'sub_category_id', 'title', 'slug', 'type', 'location', 'image', 'description', 'salary', 'deadline', 'duration', 'company_name', 'company_url', 'company_description'];
+
     const TYPES = [
         1 => 'FULL-TIME',
         2 => 'PART-TIME',
@@ -58,6 +60,23 @@ class Job extends Model
     {
         return date_format(Carbon::make($value), 'd F Y');
     }
+
+    // MUTATORS
+    /**
+     * Generate slug attribute from title
+     *
+     * @param mixed $value
+     * 
+     * @return void
+     * 
+     */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
+
+    // RELATIONSHIPS
 
     public function customer()
     {

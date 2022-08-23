@@ -22,7 +22,6 @@ class UpdateProfileService
         $this->user->userable()->update(
             $this->request->only(['profession', 'location', 'description', 'salary'])
         );
-        return;
     }
 
     public function updateLinks()

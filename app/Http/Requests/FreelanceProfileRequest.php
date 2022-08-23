@@ -33,12 +33,12 @@ class FreelanceProfileRequest extends FormRequest
             'description' => 'required|string|max:100',
             
             // 'link' => 'nullable|array',
-            'link_name.*' => 'string|nullable',
-            'link_url.*' => 'nullable|required_with:link_name.*|url',
+            'link_name.*' => 'string|distinct|nullable',
+            'link_url.*' => 'nullable|required_with:link_name.*|distinct|url',
             
             // 'experience' => 'nullable|array',
-            'company.*' => 'string|nullable',
-            'job_title.*' => 'required_with:company.*|string|nullable',
+            'company.*' => 'string|distinct|nullable',
+            'job_title.*' => 'required_with:company.*|string|distinct|nullable',
             'job_description.*' => 'required_with:company.*|string|nullable',
             'start_at.*' => 'required_with:company.*|date|nullable',
             'end_at.*' => 'required_with:company.*|date|before_or_equal:' . today() . '|nullable',
