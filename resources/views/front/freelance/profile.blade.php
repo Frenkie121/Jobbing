@@ -112,7 +112,7 @@
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     {{-- @endif --}}
-                                    <input class="search-field" type="url" placeholder="http://" name="link_url[]" value="{{ old('link_url')[$key] }}"/>
+                                    <input class="form-control" type="url" placeholder="http://" name="link_url[]" value="{{ old('link_url')[$key] }}"/>
                                     @error('link_url.*')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -120,6 +120,7 @@
                             @endforeach
                         @endif
 
+                        
                         <!-- Adding URL(s) -->
                         <div class="form boxed box-to-clone url-box">
                             <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
