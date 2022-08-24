@@ -83,7 +83,7 @@
                                 <option 
                                     @selected(old('sub_category') == $sub_category->id || $session && $data['sub_category'] == $sub_category->id)
                                     value="{{ $sub_category->id }}"
-                                >{{ $sub_category->name }}</option>
+                                >{{ $sub_category->name . '---' . $sub_category->category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -149,19 +149,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-    
-                <!-- Image -->
-                {{-- <div class="form">
-                    <h5>Custom Image <span>(optional)</span></h5>
-                    <label class="upload-btn">
-                        <input type="file" name="image" />
-                        <i class="fa fa-upload"></i> Browse
-                    </label>
-                    <span class="fake-input">No file selected</span>
-                    @error('image')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div> --}}
 
                 <!-- Add Requirements -->
                 <div class="form with-line">

@@ -32,8 +32,15 @@
             <div class="company-info">
                 <img src="{{ $job->image }}" alt="{{ $job->title }}">
                 <div class="content">
-                    <h4>{{ ucfirst($job->customer->user->name) }}</h4>
-                    <span><a href="#"><i class="fa fa-link"></i> Website</a></span>
+                    @if ($job->company_name)
+                        <h4>{{ ucfirst($job->company_name) }}</h4>
+                        @if ($job->company_description)
+                            <h6>{{ ucfirst($job->company_description) }}</h6>
+                        @endif
+                    @else
+                        <h4>{{ ucfirst($job->customer->user->name) }}</h4>
+                    @endif
+                    <span><a href="{{ $job->company_url ?? '#' }}"><i class="fa fa-link"></i> Website</a></span>
                     <span><a href="#"><i class="fa fa-twitter"></i> {{ '@' . fake()->word }}</a></span>
                 </div>
                 <div class="clearfix"></div>
@@ -110,7 +117,14 @@
                         <li>
                             <i class="fa fa-columns"></i>
                             <div>
-                                <strong>Category: {{ $job->subCategory->name }}, {{ $job->subCategory->category->name }}</strong>
+                                @php $subCategory = $job->subCategory; @endphp
+                                <strong>Category: <a href="{{ route('category', $subCategory->slug) }}">{{ $subCategory->name }}</a>, {{ $subCategory->category->name }}</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa fa-tags"></i>
+                            <div>
+                                <strong>Tags: {{ implode(', ', $job->tags()->get()->pluck('name')->toArray()) }}</strong>
                             </div>
                         </li>
                     </ul>

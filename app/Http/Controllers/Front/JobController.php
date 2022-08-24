@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
 use App\Http\Controllers\Controller;
@@ -19,7 +18,7 @@ class JobController extends Controller
     public function index()
     {
         return view('front.jobs.index', [
-            'jobs' => Job::select('*')->orderBy('created_at', 'DESC')->paginate(5),
+            'jobs' => Job::orderBy('created_at', 'DESC')->paginate(5),
         ]);
     }
 

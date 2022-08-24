@@ -26,7 +26,7 @@ class MainController extends Controller
     {
         return view('front.jobs.index', [
             'subCategory' => $subCategory,
-            'jobs' => $subCategory->jobs,
+            'jobs' => Job::select('*')->where('sub_category_id', $subCategory->id)->orderBy('created_at', 'DESC')->paginate(5),
         ]);
     }
 }

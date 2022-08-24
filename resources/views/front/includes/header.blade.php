@@ -13,19 +13,9 @@
 
                     <li><a href="{{ route('home') }}" @if(Route::is('home')) id="current" @endif>Home</a></li>
                     
-                    <li><a href="{{ route('jobs.index') }}" @if(Route::is('jobs.index')  || Route::is('jobs.show')) id="current" @endif>Jobs</a></li>
+                    <li><a href="{{ route('jobs.index') }}" @if(Route::is('jobs.index')  || Route::is('jobs.show') || Route::is('category')) id="current" @endif>Jobs</a></li>
                     
-                    <li><a href="{{ route('categories') }}" @if(Route::is('categories')) id="current" @endif>Categories</a></li>
-
-                    {{-- <li><a href="#">For Candidates</a>
-                        <ul>
-                            <li><a href="browse-jobs.html">Browse Jobs</a></li>
-                            <li><a href="browse-categories.html">Browse Categories</a></li>
-                            <li><a href="add-resume.html">Add Resume</a></li>
-                            <li><a href="manage-resumes.html">Manage Resumes</a></li>
-                            <li><a href="job-alerts.html">Job Alerts</a></li>
-                        </ul>
-                    </li> --}}
+                    <li><a href="{{ route('categories') }}" @if(Route::is('categories') || Route::is('category')) id="current" @endif>Categories</a></li>
 
                     <li><a href="#">For Employers</a>
                         <ul>
@@ -51,8 +41,6 @@
                                         <a href="{{ route('jobs.create') }}">Add Job</a>
                                     @endif
                                 </li>
-                                <li><a href="job-page-alt.html">Job Page Alternative</a></li>
-                                <li><a href="resume-page.html">Resume Page</a></li>
                                 <li><a href="{{ route('logout') }}" 
                                     onclick="event.preventDefault();
                                     document.querySelector('#logout-form').submit();"    
