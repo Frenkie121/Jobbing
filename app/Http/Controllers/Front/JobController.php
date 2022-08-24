@@ -19,6 +19,7 @@ class JobController extends Controller
     {
         return view('front.jobs.index', [
             'jobs' => Job::orderBy('created_at', 'DESC')->paginate(5),
+            'types' => Job::TYPES,
         ]);
     }
 
@@ -33,7 +34,7 @@ class JobController extends Controller
 
         return view('front.jobs.create', [
             'tags' => Tag::all(),
-            'sub_categories' => SubCategory::all(),
+            'sub_categories' => SubCategory::with(['category'])->get(),
             'types' => Job::TYPES
         ]);
     }

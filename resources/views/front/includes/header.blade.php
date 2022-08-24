@@ -13,7 +13,7 @@
 
                     <li><a href="{{ route('home') }}" @if(Route::is('home')) id="current" @endif>Home</a></li>
                     
-                    <li><a href="{{ route('jobs.index') }}" @if(Route::is('jobs.index')  || Route::is('jobs.show') || Route::is('category')) id="current" @endif>Jobs</a></li>
+                    <li><a href="{{ route('jobs.index') }}" @if(Route::has('jobs')  || Route::is('jobs.show') || Route::is('category')) id="current" @endif>Jobs</a></li>
                     
                     <li><a href="{{ route('categories') }}" @if(Route::is('categories') || Route::is('category')) id="current" @endif>Categories</a></li>
 
@@ -39,6 +39,7 @@
                                         <a href="{{ route('profile.index') }}">Profile</a>
                                     @elseif (auth()->user()->role_id === 2)
                                         <a href="{{ route('jobs.create') }}">Add Job</a>
+                                        <a href="{{ route('customer.index') }}">Dashboard</a>
                                     @endif
                                 </li>
                                 <li><a href="{{ route('logout') }}" 

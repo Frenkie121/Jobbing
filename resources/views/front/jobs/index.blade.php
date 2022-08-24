@@ -71,11 +71,6 @@
 			<h4>Location</h4>
 			<form action="#" method="get">
 				<input type="text" placeholder="State / Province" value=""/>
-				<input type="text" placeholder="City" value=""/>
-
-				<input type="text" class="miles" placeholder="Miles" value=""/>
-				<label for="zip-code" class="from">from</label>
-				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""/><br>
 
 				<button class="button">Filter</button>
 			</form>
@@ -87,25 +82,15 @@
 
 			<ul class="checkboxes">
 				<li>
-					<input id="check-1" type="checkbox" name="check" value="check-1" checked>
-					<label for="check-1">Any Type</label>
+					<input id="check-10" type="checkbox" name="check" value="0" checked>
+					<label for="check-10">Any Type</label>
 				</li>
-				<li>
-					<input id="check-2" type="checkbox" name="check" value="check-2">
-					<label for="check-2">Full-Time <span>(312)</span></label>
-				</li>
-				<li>
-					<input id="check-3" type="checkbox" name="check" value="check-3">
-					<label for="check-3">Part-Time <span>(269)</span></label>
-				</li>
-				<li>
-					<input id="check-4" type="checkbox" name="check" value="check-4">
-					<label for="check-4">Internship <span>(46)</span></label>
-				</li>
-				<li>
-					<input id="check-5" type="checkbox" name="check" value="check-5">
-					<label for="check-5">Freelance <span>(119)</span></label>
-				</li>
+				@foreach ($types as $key => $type)
+					<li>
+						<input id="check-{{ $key }}" type="checkbox" name="type" value="{{ $key }}">
+						<label for="check-{{ $key }}">{{ $type }} <span>({{ App\Models\Job::byType($key)->count() }})</span></label>
+					</li>
+				@endforeach
 			</ul>
 
 		</div>

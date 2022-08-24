@@ -58,7 +58,12 @@ class Job extends Model
 
     public function getDeadlineAttribute($value)
     {
-        return date_format(Carbon::make($value), 'd F Y');
+        return date_format(Carbon::make($value), 'F d, Y');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date_format(Carbon::make($value), 'F d, Y');
     }
 
     // MUTATORS
@@ -106,5 +111,11 @@ class Job extends Model
     public function requirements()
     {
         return $this->hasMany(Requirement::class);
+    }
+
+    // SCOPES
+    public function scopeByType($query, $type)
+    {
+        return $query->where('type', $type);
     }
 }

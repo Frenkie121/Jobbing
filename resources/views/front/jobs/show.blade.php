@@ -99,7 +99,7 @@
                         <li>
                             <i class="fa fa-clock-o"></i>
                             <div>
-                                <strong>Hours: {{ $job->duration }}</strong>
+                                <strong>Duration: {{ $job->duration }}</strong>
                             </div>
                         </li>
                         <li>
