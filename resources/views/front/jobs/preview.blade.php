@@ -132,16 +132,24 @@
                 </div>
     
                 <!-- Image -->
-                <div class="form">
+                {{-- <div class="form">
                     <h5>Custom Image <span>(optional)</span></h5>
-                    <label class="upload-btn">
-                        <input type="file" name="image" readonly />
-                        <i class="fa fa-upload"></i> Browse
-                    </label>
-                    <span class="fake-input">No file selected</span>
-                    @error('image')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                    @isset ($data['image'])
+                        <img src="{{ '' }}" alt="{{ $data['title'] }}">
+                    @endisset
+                </div> --}}
+
+                <!-- Add Requirements -->
+                <div class="form with-line">
+                    <h5>Requirements</h5>
+                    <div class="form-inside">
+                        @foreach (array_filter($data['requirement']) as $requirement)
+                            <div class="form boxed url-box">
+                                {{-- <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a> --}}
+                                <input class="search-field" type="text" placeholder="Name" name="requirement[]" value="{{ $requirement }}"/>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
                 
                 <!-- Company Details -->
@@ -151,27 +159,18 @@
                 <div class="form">
                     <h5>Company Name</h5>
                     <input type="text" name="company[name]" placeholder="Enter the name of the company" value="{{ $data['company']['name'] }}" readonly>
-                    @error('company.name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                 </div>
     
                 <!-- Website -->
                 <div class="form">
                     <h5>Website <span>(optional)</span></h5>
                     <input type="url" name="company[url]" placeholder="http://" value="{{ $data['company']['url'] }}" readonly>
-                    @error('company.url')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                 </div>
     
                 <!-- Tagline -->
                 <div class="form">
                     <h5>Tagline <span>(optional)</span></h5>
                     <input type="text" name="company[description]" placeholder="Briefly describe your company" value="{{ $data['company']['description'] }}" readonly>
-                    @error('company.description')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                 </div>
     
                 <div class="divider margin-top-0"></div>

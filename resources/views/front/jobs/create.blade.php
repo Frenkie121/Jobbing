@@ -143,7 +143,7 @@
                 <!-- TClosing Date -->
                 <div class="form">
                     <h5>Closing Date <span>(optional)</span></h5>
-                    <input data-role="date" type="date" name="deadline" placeholder="yyyy-mm-dd" value="{{ old('deadline') ?? ($session ? $data['deadline'] : '') }}">
+                    <input data-role="date" type="date" name="deadline" min="{{ today()->addDay()->format('d-m-Y') }}" placeholder="yyyy-mm-dd" value="{{ old('deadline') ?? ($session ? $data['deadline'] : '') }}">
                     <p class="note">Deadline for new applicants.</p>
                     @error('deadline')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -151,7 +151,7 @@
                 </div>
     
                 <!-- Image -->
-                <div class="form">
+                {{-- <div class="form">
                     <h5>Custom Image <span>(optional)</span></h5>
                     <label class="upload-btn">
                         <input type="file" name="image" />
@@ -161,6 +161,42 @@
                     @error('image')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                </div> --}}
+
+                <!-- Add Requirements -->
+                <div class="form with-line">
+                    <h5>Requirements</h5>
+                    <div class="form-inside">
+                        @if (old('requirement'))
+                            @foreach (array_filter(old('requirement')) as $requirement)
+                                <div class="form boxed url-box">
+                                    <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                                    <input class="search-field" type="text" placeholder="Name" name="requirement[]" value="{{ $requirement }}"/>
+                                </div>
+                            @endforeach
+                            @error('requirement.*')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        @endif
+                        
+                        <!-- Adding URL(s) -->
+                        <div class="form boxed box-to-clone url-box">
+                            <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                            <input class="search-field" type="text" placeholder="e.g. Excellent customer service skills, communication skills, and a happy, smiling attitude are essential." name="requirement[]" value=""/>
+                        </div>
+
+                        <a href="#" class="button gray add-url add-box"><i class="fa fa-plus-circle"></i> Add Requirement</a>
+                    </div>
+
+                    @empty(old('requirement'))
+                        @forelse (array_filter($data['requirement']) as $requirement)
+                            <div class="form boxed url-box">
+                                <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                                <input class="search-field" type="text" placeholder="Name" name="requirement[]" value="{{ $requirement }}"/>
+                            </div>
+                        @empty
+                        @endforelse
+                    @endempty
                 </div>
                 
                 <!-- Company Details -->

@@ -434,7 +434,7 @@
             e.preventDefault();
             var newElem = $(this).parent().find('.box-to-clone:first').clone();
             newElem.find('input').val('');
-            newElem.prependTo($(this).parent()).show();
+            newElem.appendTo($(this).parent()).show();
             var height = $(this).prev('.box-to-clone').outerHeight(true);
             
             $("html, body").stop().animate({ scrollTop: $(this).offset().top-height}, 600);

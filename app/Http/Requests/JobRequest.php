@@ -31,10 +31,12 @@ class JobRequest extends FormRequest
             'description' => 'required|string',
             'salary' => 'required|numeric',
             'duration' => 'required|numeric',
-            'deadline' => 'required|after_or_equal:' . today(),
-            'image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:1024',
+            'deadline' => 'required|after_or_equal:' . today()->addDay()->format('d-m-Y'),
+            // 'image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:1024',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
+            'requirement' => 'required|array',
+            'requirement.*' => 'nullable|string',
             'company' => 'nullable|array',
             'company.name' => 'required_with:company.url|required_with:company.description|string|nullable',
             'company.url' => 'string|url|nullable',
@@ -47,6 +49,7 @@ class JobRequest extends FormRequest
         return [
             'sub_category.exists' => 'The category must be a correct value',
             'tags.*.exists' => 'The tag at #:position must be a correct value',
+            'requirement.*.string' => 'The requirement #:position must be a string value',
         ];
     }
 }

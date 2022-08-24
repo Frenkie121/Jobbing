@@ -66,7 +66,7 @@ class JobController extends Controller
     public function preview()
     {
         $this->authorize('create', Job::class);
-
+        
         return view('front.jobs.preview', [
             'data' => session()->get('data'),
             'tags' => Tag::all(),
@@ -111,7 +111,12 @@ class JobController extends Controller
         // 2. Attach tags with created job
         $job->tags()->attach($session['tags']);
 
-        // 3. Destroy data variable from session
+        // 3. Add requirements for this Job
+        foreach (array_filter($session['requirement']) as $requirement) {
+            $job->requirements()->create(['content' => $requirement]);
+        }
+
+        // 4. Destroy data variable from session
         session()->forget('data');
 
         return redirect()->route('home');
