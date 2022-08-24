@@ -34,9 +34,9 @@ class JobRequest extends FormRequest
             'deadline' => 'required|after_or_equal:' . today()->addDay()->format('d-m-Y'),
             // 'image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:1024',
             'tags' => 'required|array',
-            'tags.*' => 'exists:tags,id',
+            'tags.*' => 'exists:tags,id|distinct:ignore_case',
             'requirement' => 'required|array',
-            'requirement.*' => 'nullable|string',
+            'requirement.*' => 'nullable|string|distinct:ignore_case',
             'company' => 'nullable|array',
             'company.name' => 'required_with:company.url|required_with:company.description|string|nullable',
             'company.url' => 'string|url|nullable',
@@ -50,6 +50,8 @@ class JobRequest extends FormRequest
             'sub_category.exists' => 'The category must be a correct value',
             'tags.*.exists' => 'The tag at #:position must be a correct value',
             'requirement.*.string' => 'The requirement #:position must be a string value',
+            'requirement.*.distinct' => 'The requirement #:position has a duplicate value',
+            'company.name.required_with' => 'The company name has to be set when the description or url is present',
         ];
     }
 }

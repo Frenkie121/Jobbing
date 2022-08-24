@@ -130,14 +130,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-    
-                <!-- Image -->
-                {{-- <div class="form">
-                    <h5>Custom Image <span>(optional)</span></h5>
-                    @isset ($data['image'])
-                        <img src="{{ '' }}" alt="{{ $data['title'] }}">
-                    @endisset
-                </div> --}}
 
                 <!-- Add Requirements -->
                 <div class="form with-line">
@@ -152,26 +144,34 @@
                     </div>
                 </div>
                 
-                <!-- Company Details -->
-                <div class="divider"><h3>Company Details</h3></div>
-    
-                <!-- Company Name -->
-                <div class="form">
-                    <h5>Company Name</h5>
-                    <input type="text" name="company[name]" placeholder="Enter the name of the company" value="{{ $data['company']['name'] }}" readonly>
-                </div>
-    
-                <!-- Website -->
-                <div class="form">
-                    <h5>Website <span>(optional)</span></h5>
-                    <input type="url" name="company[url]" placeholder="http://" value="{{ $data['company']['url'] }}" readonly>
-                </div>
-    
-                <!-- Tagline -->
-                <div class="form">
-                    <h5>Tagline <span>(optional)</span></h5>
-                    <input type="text" name="company[description]" placeholder="Briefly describe your company" value="{{ $data['company']['description'] }}" readonly>
-                </div>
+                @if ($data['company']['name'] || $data['company']['description'] || $data['company']['url'])
+                    <!-- Company Details -->
+                    <div class="divider"><h3>Company Details</h3></div>
+        
+                    @if ($data['company']['name'])
+                        <!-- Company Name -->
+                        <div class="form">
+                            <h5>Company Name</h5>
+                            <input type="text" name="company[name]" placeholder="Enter the name of the company" value="{{ $data['company']['name'] }}" readonly>
+                        </div>
+                    @endif
+        
+                    @if ($data['company']['url'])
+                        <!-- Website -->
+                        <div class="form">
+                            <h5>Website <span>(optional)</span></h5>
+                            <input type="url" name="company[url]" placeholder="http://" value="{{ $data['company']['url'] }}" readonly>
+                        </div>
+                    @endif
+        
+                    @if ($data['company']['description'])
+                        <!-- Tagline -->
+                        <div class="form">
+                            <h5>Tagline <span>(optional)</span></h5>
+                            <input type="text" name="company[description]" placeholder="Briefly describe your company" value="{{ $data['company']['description'] }}" readonly>
+                        </div>
+                    @endif
+                @endif
     
                 <div class="divider margin-top-0"></div>
                 <div class="justify-content-between row">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
 use App\Http\Controllers\Controller;
 use App\Models\{Job, SubCategory, Tag};
+use App\Services\Job\CreateJobService;
 
 class JobController extends Controller
 {
@@ -80,7 +81,7 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(CreateJobService $createJobService)
     {
         $this->authorize('create', Job::class);
 
@@ -93,28 +94,15 @@ class JobController extends Controller
 
         // Remove 'extra' keys for matching columns in DB
         unset($data['company'], $data['tags'], $data['sub_category']);
-
-        $user = User::query()->findOrFail(auth()->id());
-        $session = session()->get('data');  
-        
+         
         // 1. Create Job for the Customer
-        $job = Job::query()->create(
-            $data + [
-                'customer_id' => $user->userable->id,
-                'sub_category_id' => $session['sub_category'],
-                'company_name' => $session['company']['name'],
-                'company_url' => $session['company']['url'],
-                'company_description' => $session['company']['description'],
-            ]
-        );
+        $job = $createJobService->createJob();
 
         // 2. Attach tags with created job
-        $job->tags()->attach($session['tags']);
+        $createJobService->attachTags($job);
 
         // 3. Add requirements for this Job
-        foreach (array_filter($session['requirement']) as $requirement) {
-            $job->requirements()->create(['content' => $requirement]);
-        }
+        $createJobService->saveRequirements($job);
 
         // 4. Destroy data variable from session
         session()->forget('data');

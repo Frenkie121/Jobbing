@@ -189,13 +189,15 @@
                     </div>
 
                     @empty(old('requirement'))
-                        @forelse (array_filter($data['requirement']) as $requirement)
-                            <div class="form boxed url-box">
-                                <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
-                                <input class="search-field" type="text" placeholder="Name" name="requirement[]" value="{{ $requirement }}"/>
-                            </div>
-                        @empty
-                        @endforelse
+                        @if ($session)
+                            @forelse (array_filter($data['requirement']) as $requirement)
+                                <div class="form boxed url-box">
+                                    <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                                    <input class="search-field" type="text" placeholder="Name" name="requirement[]" value="{{ $requirement }}"/>
+                                </div>
+                            @empty
+                            @endforelse
+                        @endif
                     @endempty
                 </div>
                 
