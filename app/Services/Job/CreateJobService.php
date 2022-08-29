@@ -43,4 +43,10 @@ class CreateJobService
             $job->requirements()->create(['content' => $requirement]);
         }
     }
+
+    public function addStatus(Job $job)
+    {
+        // Init status with "PENDING"
+        $job->statuses()->attach(1);
+    }
 }

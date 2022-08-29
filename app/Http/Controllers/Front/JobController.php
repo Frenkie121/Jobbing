@@ -10,6 +10,11 @@ use App\Services\Job\CreateJobService;
 
 class JobController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('role:2')->except(['index', 'show']);
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -97,6 +102,8 @@ class JobController extends Controller
          
         // 1. Create Job for the Customer
         $job = $createJobService->createJob();
+        // Attach first status
+        $createJobService->addStatus($job);
 
         // 2. Attach tags with created job
         $createJobService->attachTags($job);
@@ -154,6 +161,14 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        $this->authorize('create', Job::class);
+        
+        if ($job->starts_at) {
+            flash('You cannot delete an ongoing job.', 'error');
+        }else {
+            flash('Job has been successfully deleted.', 'success');
+            $job->delete();
+        }
+        return back();
     }
 }

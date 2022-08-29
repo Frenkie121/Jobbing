@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('requirements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained();
+            $table->foreignId('job_id')->constrained()->cascadeOnDelete();
             $table->string('content', 255);
             $table->timestamps();
         });
