@@ -47,7 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     ];
 
     // ACCESSORS
-    
+    // public function getRole(int $role)
+    // {
+    //     return match($role) {
+    //         1 => 'Admin',
+    //         2 => 'Customer',
+    //         3 => 'Freelance'
+    //     };
+    // }
 
     // MUTATORS
     public function setPasswordAttribute($value)

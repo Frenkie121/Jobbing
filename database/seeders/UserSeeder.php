@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             'email' => 'admin@job.com',
-            'role_id' => 1
+            'role_id' => 1,
+            'is_active' => 1
         ]);
     
         for ($i=1; $i < 4; $i++) { 

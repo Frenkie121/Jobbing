@@ -35,8 +35,8 @@ Route::prefix('profile')->name('profile.')->controller(ProfileController::class)
 });
 
 // Customer
-Route::prefix('jobs')->name('customer.')->controller()->group(function(){
-    Route::get('dashboard', [JobsController::class, 'index'])->name('index');
+Route::middleware(['auth', 'role:Customer'])->prefix('jobs')->name('customer.')->controller(JobsController::class)->group(function(){
+    Route::get('dashboard', 'index')->name('index');
     
 });
 
