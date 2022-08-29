@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\Logged;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -49,6 +50,8 @@ class LoginController extends Controller
                 3 => 'profile',
                 default => '/'
             };
+
+            event(new Logged($user));
 
             $request->session()->regenerate();
  
