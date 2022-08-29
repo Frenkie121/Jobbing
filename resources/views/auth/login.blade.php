@@ -22,14 +22,6 @@
                 <!-- Login -->
                 <div class="tab-content" id="tab1" style="display: none;">
 
-                    @if (session()->has('account_disabled'))
-                        <div class="alert alert-danger">{{ session()->get('account_disabled') }}</div>
-                    @endif
-
-                    @if (session()->has('account_not_found'))
-                        <div class="alert alert-danger">{{ session()->get('account_not_found') }}</div>
-                    @endif
-
                     <form method="post" action="{{ route('login') }}" class="login">
                         @csrf
                         @method('POST')

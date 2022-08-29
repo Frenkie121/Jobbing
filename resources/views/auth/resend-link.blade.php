@@ -24,15 +24,6 @@
 
                     <h3 class="margin-bottom-10 margin-top-10">Email Verification</h3>
 
-                    @if (session()->has('message'))
-                        <div class="alert alert-success">{{ session()->get('message') }}</div>
-                    @endif
-                    
-                    @if (session()->has('error'))
-                        <div class="alert alert-danger h6">
-                            <small>{{ session()->get('error') }}</small>
-                        </div>
-                    @endif
                     <span class="mt-2 mb-4 h6">Fill the form with authenticating email that are using now and we'll send you an email for verification.</span>
                     <form method="post" action="{{ route('verification.send') }}" class="login">
                         @csrf

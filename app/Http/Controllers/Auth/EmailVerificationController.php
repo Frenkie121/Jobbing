@@ -59,13 +59,15 @@ class EmailVerificationController extends Controller
     public function resendVerificationLink(Request $request)
     {
         if ($request->email !== auth()->user()->email) {
+            flash('Provided email must be the one that you are authenticating with.', 'error');
             return back()
-                    ->withInput()
-                    ->with('error', 'Provided email must be the one that you are authenticating with.');
+                    ->withInput();
         }
 
         $request->user()->sendEmailVerificationNotification();
  
-        return back()->with('message', 'Verification link sent!');
+        flash('Verification link sent!', 'success');
+
+        return back();
     }
 }

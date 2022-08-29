@@ -88,8 +88,8 @@ class JobController extends Controller
         $data = session()->get('data');
         
         if (!$data) {
-            return redirect()->route('jobs.create')
-                ->with('data_lost', 'Data have been lost. You have to re-fill the form');
+            flash('Data have been lost. You have to re-fill the form', 'warning');
+            return redirect()->route('jobs.create');
         }
 
         // Remove 'extra' keys for matching columns in DB

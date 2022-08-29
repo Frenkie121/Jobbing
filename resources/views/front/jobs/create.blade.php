@@ -25,8 +25,6 @@
             <div class="alert alert-danger text-center">Something was wrong! Please check the form again to see error(s).</div>
         @elseif (session()->has('data'))
             <div class="alert alert-info text-center">You have requested to back here. Edit the form and submit it again for the preview.</div>
-        @elseif (session()->has('data_lost'))
-            <div class="alert alert-info text-center">{{ session()->get('data_lost') }}</div>
         @endif
 
 		<form action="{{ route('jobs.submit') }}" method="post" enctype="multipart/form-data">

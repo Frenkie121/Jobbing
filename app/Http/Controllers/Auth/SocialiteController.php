@@ -35,8 +35,8 @@ class SocialiteController extends Controller
         $user_from_driver = Socialite::driver($driver)->user();
         $user = User::whereEmail($user_from_driver->getEmail())->first();
         if (!$user) {
-            return back()
-                    ->with('account_not_found', 'You don\'t have an account in our records with your ' . ucfirst($driver) . ' email.');
+            flash('You don\'t have an account in our records with your ' . ucfirst($driver) . ' email.', 'error');
+            return back();
         }
         Auth::login($user);
     

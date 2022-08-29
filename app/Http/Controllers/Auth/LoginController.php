@@ -35,8 +35,8 @@ class LoginController extends Controller
         
         $user = User::whereEmail($request->email)->first();
         if ($user && !$user->is_active) {
-            return back()->withInput()
-                        ->with('account_disabled', 'Your account has been disabled. Please contact admin.');
+            flash('Your account has been disabled. Please contact admin.', 'warning');
+            return back()->withInput();
         }
 
         if (Auth::attempt([
@@ -58,10 +58,9 @@ class LoginController extends Controller
             return redirect()->intended($redirect);
         }
 
-        return back()->withInput()
-                ->withErrors([
-                    'email' => 'The provided credentials do not match our records.'
-                ]);
+        flash('The provided credentials do not match our records.', 'error');
+
+        return back()->withInput();
     }
 
     /**

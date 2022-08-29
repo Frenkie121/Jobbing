@@ -33,6 +33,8 @@ class ProfileController extends Controller
         // 4. Update/Create freelance experiences
         $updateProfileService->updateExperiences();
 
-        return back()->with('success', 'Profile successfully updated');
+        flash('Profile successfully updated', 'success');
+
+        return back();
     }
 }
