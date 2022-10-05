@@ -18,17 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 
+Route::get('jobs/create/preview', [JobController::class, 'preview'])->name('jobs.preview');
+Route::post('jobs/create/preview', [JobController::class, 'submit'])->name('jobs.submit');
 
 // Jobs CRUD
 Route::resource('jobs', JobController::class);
-Route::get('jobs/create/preview', [JobController::class, 'preview'])->name('jobs.preview');
-Route::post('jobs/create/preview', [JobController::class, 'submit'])->name('jobs.submit');
 
 Route::prefix('categories')->controller(MainController::class)->group(function(){
     Route::get('', 'categories')->name('categories');
     Route::get('{subCategory:slug}/jobs', 'category')->name('category.jobs');
 });
-
 
 // Freelance
 Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function(){
@@ -37,7 +36,7 @@ Route::prefix('profile')->name('profile.')->controller(ProfileController::class)
 });
 
 // Customer
-Route::middleware(['auth', 'role:Customer'])->prefix('jobs')->name('customer.')->controller(JobsController::class)->group(function(){
+Route::middleware(['auth', 'role:Customer'])->prefix('my-jobs')->name('customer.')->controller(JobsController::class)->group(function(){
     Route::get('dashboard', 'index')->name('index');
     
 });

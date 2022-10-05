@@ -118,13 +118,13 @@
                             <i class="fa fa-columns"></i>
                             <div>
                                 @php $subCategory = $job->subCategory; @endphp
-                                <strong>Category: <a href="{{ route('category', $subCategory->slug) }}">{{ $subCategory->name }}</a>, {{ $subCategory->category->name }}</strong>
+                                <strong>Category: <a href="{{ route('category.jobs', $subCategory->slug) }}">{{ $subCategory->name }}</a>, {{ $subCategory->category->name }}</strong>
                             </div>
                         </li>
                         <li>
                             <i class="fa fa-tags"></i>
                             <div>
-                                <strong>Tags: {{ implode(', ', $job->tags()->get()->pluck('name')->toArray()) }}</strong>
+                                <strong>Tags: {{ implode(', ', $job->tags->pluck('name')->toArray()) }}</strong>
                             </div>
                         </li>
                     </ul>
