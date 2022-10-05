@@ -10,7 +10,7 @@ class MainController extends Controller
     public function home()
     {
         return view('front.home', [
-            'categories' => Category::with(['subCategories'])->get()->take(8),
+            'sub_categories' => SubCategory::query()->whereHas('jobs')->get(['slug', 'name'])->take(8),
             'jobs' => Job::orderBy('created_at', 'DESC')->get()->take(5)
         ]);
     }

@@ -7,7 +7,7 @@
 <!-- Titlebar ================================================== -->
 <x-front.title-bar title="Jobs" previous="Home" previousUrl="{{ route('home') }}">
 	@isset($subCategory)
-		<li>{{ $subCategory->name }}</li>
+		<li>Category : {{ $subCategory->name }}</li>
 	@endisset
 </x-front.title-bar>
 
@@ -88,7 +88,7 @@
 				@foreach ($types as $key => $type)
 					<li>
 						<input id="check-{{ $key }}" type="checkbox" name="type" value="{{ $key }}">
-						<label for="check-{{ $key }}">{{ $type }} <span>({{ App\Models\Job::byType($key)->count() }})</span></label>
+						<label for="check-{{ $key }}">{{ $type }} <span>({{ App\Models\Job::query()->byType($key)->count() }})</span></label>
 					</li>
 				@endforeach
 			</ul>

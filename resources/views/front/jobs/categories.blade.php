@@ -31,7 +31,7 @@
                 <div class="four columns">
                     <ul>
                         @foreach ($category->subCategories as $subCategory)
-                            <li><a href="{{ route('category', $subCategory->slug) }}">{{ $subCategory->name }}</a></li>
+                            <li><a href="{{ route('category.jobs', $subCategory->slug) }}">{{ $subCategory->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

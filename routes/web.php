@@ -18,13 +18,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 
-// Jobs
+
+// Jobs CRUD
+Route::resource('jobs', JobController::class);
 Route::get('jobs/create/preview', [JobController::class, 'preview'])->name('jobs.preview');
 Route::post('jobs/create/preview', [JobController::class, 'submit'])->name('jobs.submit');
 
 Route::prefix('categories')->controller(MainController::class)->group(function(){
     Route::get('', 'categories')->name('categories');
-    Route::get('{subCategory:slug}', 'category')->name('category');
+    Route::get('{subCategory:slug}/jobs', 'category')->name('category.jobs');
 });
 
 
@@ -39,9 +41,6 @@ Route::middleware(['auth', 'role:Customer'])->prefix('jobs')->name('customer.')-
     Route::get('dashboard', 'index')->name('index');
     
 });
-
-// Jobs CRUD
-Route::resource('jobs', JobController::class);
 
 // Authentication
 require __DIR__ . DIRECTORY_SEPARATOR . 'auth.php';

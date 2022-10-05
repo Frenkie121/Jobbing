@@ -13,9 +13,9 @@
 
                     <li><a href="{{ route('home') }}" @if(Route::is('home')) id="current" @endif>Home</a></li>
                     
-                    <li><a href="{{ route('jobs.index') }}" @if(Route::has('jobs')  || Route::is('jobs.show') || Route::is('category')) id="current" @endif>Jobs</a></li>
+                    <li><a href="{{ route('jobs.index') }}" @if(Route::has('jobs.index') || Route::is('jobs.show') || Route::is('category.jobs')) id="current" @endif>Jobs</a></li>
                     
-                    <li><a href="{{ route('categories') }}" @if(Route::is('categories') || Route::is('category')) id="current" @endif>Categories</a></li>
+                    <li><a href="{{ route('categories') }}" @if(Route::is('categories')) id="current" @endif>Categories</a></li>
 
                     <li><a href="#">For Employers</a>
                         <ul>

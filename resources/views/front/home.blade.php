@@ -52,8 +52,8 @@
 	<div class="sixteen columns">
 		<h3 class="margin-bottom-25">Popular Categories</h3>
 		<ul id="popular-categories">
-			@forelse ($categories as $category)
-				<li><a href="#"><i class="fa fa-laptop"></i> {{ $category->name }}</a></li>
+			@forelse ($sub_categories as $sub_category)
+				<li><a href="{{ route('category.jobs', $sub_category->slug) }}"><i class="fa fa-laptop"></i> {{ $sub_category->name }}</a></li>
 			@empty
 				<div class="text-center text-info">New categories coming very soon...</div>
 			@endforelse
