@@ -38,7 +38,8 @@ class Job extends Model
 
     public function getDescriptionAttribute($value)
     {
-        return substr($value, 0, 250) . '...';
+        // substr($value, 0, 250) . '...'
+        return Str::limit($value, 250);
     }
 
     public function getImageAttribute($value)
@@ -95,7 +96,7 @@ class Job extends Model
 
     public function freelances()
     {
-        return $this->belongsToMany(Freelance::class);
+        return $this->belongsToMany(Freelance::class)->withPivot(['is_hired', 'created_at']);
     }
 
     public function statuses()
@@ -113,9 +114,20 @@ class Job extends Model
         return $this->hasMany(Requirement::class);
     }
 
+    // CUSTOM
+    public function hasHired()
+    {
+        return $this->freelances->filter(fn($item) => $item->pivot->is_hired)->isNotEmpty();
+    }
+
     // SCOPES
     public function scopeByType($query, $type)
     {
         return $query->where('type', $type);
+    }
+
+    public function scopeCanApply($query)
+    {
+        return $query->whereNull('starts_at')->whereDate('deadline', '>', today());
     }
 }

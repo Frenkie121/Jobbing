@@ -114,15 +114,16 @@
 
 					<ul>
 
-						@forelse ($jobs as $job)
+						@forelse ($jobs_spotlight as $job)
 							<li>
 								<div class="job-spotlight">
-									<a href="#"><h4>{{ $job->title }} <span class="{{ $job->type_class }}">{{ $job->type }}</span></h4></a>
+									<a href="{{ route('jobs.show', $job->slug) }}"><h4>{{ $job->title }} <span class="{{ $job->type_class }}">{{ $job->type }}</span></h4></a>
 									<span><i class="fa fa-briefcase"></i> Mates</span>
 									<span><i class="fa fa-map-marker"></i> {{ $job->location }}</span>
 									<span><i class="fa fa-money"></i>{{ $job->salary }} / hour</span>
 									<p>{{ $job->description }}</p>
-									<a href="job-page.html" class="button">Apply For This Job</a>
+									
+									<x-job.apply-button slug="{{ $job->slug }}" id="{{ $job->id }}" />
 								</div>
 							</li>
 						@empty

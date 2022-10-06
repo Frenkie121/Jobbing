@@ -46,8 +46,8 @@ class LoginController extends Controller
             
             $redirect = match($user->role_id){
                 1 => '/',
-                2 => fn() => $user->userable->jobs->isEmpty() ? 'jobs/create' : 'jobs/dashboard',
-                3 => 'profile',
+                2 => fn() => $user->userable->jobs->isEmpty() ? 'jobs/create' : 'my-jobs/dashboard',
+                3 => fn() => $user->userable->experiences->isEmpty() ? 'profile' : 'jobs',
                 default => '/'
             };
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
 use App\Http\Controllers\Controller;
-use App\Models\{Job, SubCategory, Tag};
 use App\Services\Job\CreateJobService;
+use App\Models\{Job, SubCategory, Tag};
 
 class JobController extends Controller
 {
@@ -23,7 +24,7 @@ class JobController extends Controller
     public function index()
     {
         return view('front.jobs.index', [
-            'jobs' => Job::orderBy('created_at', 'DESC')->paginate(5),
+            'jobs' => Job::query()->orderBy('created_at', 'DESC')->paginate(5),
             'types' => Job::TYPES,
         ]);
     }
@@ -39,7 +40,7 @@ class JobController extends Controller
 
         return view('front.jobs.create', [
             'tags' => Tag::all(),
-            'sub_categories' => SubCategory::with(['category'])->get(),
+            'categories' => Category::with(['subCategories'])->get(),
             'types' => Job::TYPES
         ]);
     }
@@ -114,7 +115,7 @@ class JobController extends Controller
         // 4. Destroy data variable from session
         session()->forget('data');
 
-        return redirect()->route('home');
+        return redirect()->route('customer.index');
     }
 
     /**

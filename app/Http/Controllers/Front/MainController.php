@@ -11,7 +11,8 @@ class MainController extends Controller
     {
         return view('front.home', [
             'sub_categories' => SubCategory::query()->whereHas('jobs')->get(['slug', 'name'])->take(8),
-            'jobs' => Job::orderBy('created_at', 'DESC')->get()->take(5)
+            'jobs' => Job::orderBy('created_at', 'DESC')->get()->take(5),
+            'jobs_spotlight' => Job::canApply()->orderBy('deadline')->get()->take(5),
         ]);
     }
 

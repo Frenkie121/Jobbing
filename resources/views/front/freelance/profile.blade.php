@@ -22,6 +22,7 @@
         @endif
         
         @if ($errors->any())
+            @dump($errors)
             <div class="alert alert-danger text-center">Update failed! Please check the form again to see error(s).</div>
         @endif
         
@@ -172,7 +173,7 @@
                             <input class="search-field" type="text" placeholder="Company" name="company[]" value="" />
                             <input class="search-field" type="text" placeholder="Job Title" name="job_title[]" value />
                             <input class="search-field" type="date" placeholder="Start date" name="start_at[]" value />
-                            <input class="search-field" type="date" placeholder="Start date" name="end_at[]" value="" />
+                            <input class="search-field" type="date" placeholder="End date" name="end_at[]" value="" />
                             <textarea name="job_description[]" id="desc1" cols="30" rows="10" placeholder="Notes (optional)"></textarea>
                         </div>
 

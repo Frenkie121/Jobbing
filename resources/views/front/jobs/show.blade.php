@@ -72,7 +72,7 @@
                 @forelse ($job->requirements as $requirement)
                     <li>{{ $requirement->content }}</li>
                 @empty
-                    <span>NO requirement for this job.</span>
+                    <span>No requirement for this job.</span>
                 @endforelse
             </ul>
     
@@ -129,37 +129,7 @@
                         </li>
                     </ul>
     
-    
-                    <a href="#small-dialog" class="popup-with-zoom-anim button">Apply For This Job</a>
-    
-                    <div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
-                        <div class="small-dialog-headline">
-                            <h2>Apply For This Job</h2>
-                        </div>
-    
-                        <div class="small-dialog-content">
-                            <form action="#" method="get" >
-                                <input type="text" placeholder="Full Name" value=""/>
-                                <input type="text" placeholder="Email Address" value=""/>
-                                <textarea placeholder="Your message / cover letter sent to the employer"></textarea>
-    
-                                <!-- Upload CV -->
-                                <div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
-                                <div class="clearfix"></div>
-    
-                                <label class="upload-btn">
-                                    <input type="file" multiple />
-                                    <i class="fa fa-upload"></i> Browse
-                                </label>
-                                <span class="fake-input">No file selected</span>
-    
-                                <div class="divider"></div>
-    
-                                <button class="send">Send Application</button>
-                            </form>
-                        </div>
-                        
-                    </div>
+                    <x-job.apply-button slug="{{ $job->slug }}" id="{{ $job->id }}" />
     
                 </div>
     

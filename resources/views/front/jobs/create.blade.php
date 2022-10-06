@@ -58,7 +58,7 @@
                 <div class="form">
                     <h5>Job Type</h5>
                     <select data-placeholder="Select a Job Type" name="type" class="chosen-select-no-single">
-                        <option disabled>Select a Job Type</option>
+                        <option disabled @selected(is_null(old('type')))>Select a Job Type</option>
                         @foreach ($types as $key => $type)
                             <option
                                 @selected(old('type') == $key || $session && $data['type'] == $key)
@@ -76,12 +76,16 @@
                     <div class="select">
                         <h5>Category</h5>
                         <select data-placeholder="Choose Category" name="sub_category" class="chosen-select-no-single">
-                            <option disabled>Select a Job Category</option>
-                            @foreach ($sub_categories as $sub_category)
-                                <option 
-                                    @selected(old('sub_category') == $sub_category->id || $session && $data['sub_category'] == $sub_category->id)
-                                    value="{{ $sub_category->id }}"
-                                >{{ $sub_category->name . '---' . $sub_category->category->name }}</option>
+                            <option disabled selected>Select a Job Category</option>
+                            @foreach ($categories as $category)
+                                <optgroup label="{{ $category->name }}">
+                                    @foreach ($category->subCategories as $sub_category)
+                                    <option 
+                                        @selected(old('sub_category') == $sub_category->id || $session && $data['sub_category'] == $sub_category->id)
+                                        value="{{ $sub_category->id }}"
+                                    >{{ $sub_category->name }}</option>
+                                    @endforeach
+                                </optgroup>
                             @endforeach
                         </select>
                     </div>
@@ -217,7 +221,7 @@
                 </div>
     
                 <div class="divider margin-top-0"></div>
-                <button type="submit" class="button big margin-top-5">Save <i class="fa fa-arrow-circle-right"></i></button>
+                <button type="submit" class="button big margin-top-5">Preview <i class="fa fa-arrow-circle-right"></i></button>
     
             </div>
         </form>

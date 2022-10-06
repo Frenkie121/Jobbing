@@ -25,4 +25,22 @@ class Freelance extends Model
     {
         return $this->hasMany(Experience::class);
     }
+
+    public function jobs()
+    {
+        return $this->belongsToMany(Job::class)
+                ->withPivot(['is_hired', 'created_at'])
+                ->withTimestamps();
+    }
+
+    // 
+    public function hasAppliedToJob(int $job_id)
+    {
+        return $this->jobs->contains($job_id);
+    }
+
+    public function hasBeenHired(int $job_id)
+    {
+        return $this->jobs->filter(fn($item) => $item->pivot->job_id == $job_id && $item->pivot->is_hired == 1);
+    }
 }

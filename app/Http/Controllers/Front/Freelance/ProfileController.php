@@ -35,6 +35,6 @@ class ProfileController extends Controller
 
         flash('Profile successfully updated', 'success');
 
-        return back();
+        return redirect()->route('jobs.index');
     }
 }

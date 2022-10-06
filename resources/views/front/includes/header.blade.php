@@ -36,6 +36,7 @@
                                 <li>
                                     @if (auth()->user()->role_id === 3)
                                         <a href="{{ route('profile.index') }}">Profile</a>
+                                        <a href="{{ route('freelance.index') }}">Dashboard</a>
                                     @elseif (auth()->user()->role_id === 2)
                                         <a href="{{ route('jobs.create') }}">Add Job</a>
                                         <a href="{{ route('customer.index') }}">Dashboard</a>
