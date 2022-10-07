@@ -11,6 +11,11 @@ class JobsController extends Controller
     public function index()
     {
         $freelance = auth()->user()->userable;
+
+        if (is_null($freelance->profession)) {
+            flash('You must complete your profile before accessing this page.', 'info');
+            return redirect()->route('profile.index');
+        }
         
         return view('front.freelance.index', [
             'jobs' => $freelance->jobs->load('freelances'),
@@ -22,7 +27,7 @@ class JobsController extends Controller
     {
         $freelance = auth()->user()->userable;
         
-        if (is_null($freelance->profession) || $freelance->experiences->isEmpty()) {
+        if (is_null($freelance->profession)) {
             flash('You must complete your profile before apply to a job.', 'warning');
             return redirect()->route('profile.index');
         } elseif ($freelance->hasAppliedToJob($job->id)) {

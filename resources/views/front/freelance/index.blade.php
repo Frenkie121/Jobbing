@@ -16,7 +16,7 @@
 	<!-- Table -->
 	<div class="sixteen columns">
 
-		<p class="margin-bottom-25">Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.</p>
+		{{-- <p class="margin-bottom-25">Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.</p> --}}
 
 		<table class="manage-table responsive-table">
 
@@ -61,13 +61,15 @@
                     </td>
                 </tr>
             @empty
-                <span>You don't have job any job for the moment. You can create one by clicking on the link below.</span>
+                <tr>
+                    <td colspan="6" align="center">You haven't apply to any job for the moment.</td>
+                </tr>
             @endforelse
 
 		</table>
 
 		<br>
-		<a href="{{ route('jobs.create') }}" class="button">Add Job</a>
+		<a href="{{ route('jobs.index') }}" class="button">Find Job</a>
 
 	</div>
 

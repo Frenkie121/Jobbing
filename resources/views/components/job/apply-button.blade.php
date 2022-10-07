@@ -1,5 +1,5 @@
 <div>
-  @if (auth()->user()->role_id === 3 && auth()->user()->userable->hasAppliedToJob($id))
+  @if (auth()->check() && auth()->user()->role_id === 3 && auth()->user()->userable->hasAppliedToJob($id))
       <button class="button" style="background-color: gold; margin-left: 55px" aria-disabled="true">Already Applied</button>
   @else
     <a href="{{ route('freelance.apply', $slug) }}" class="button"

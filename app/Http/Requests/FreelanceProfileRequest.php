@@ -41,7 +41,7 @@ class FreelanceProfileRequest extends FormRequest
             'job_title.*' => 'required_with:company.*|string|distinct:ignore_case|nullable',
             'job_description.*' => 'string|nullable',
             'start_at.*' => 'required_with:company.*|date|nullable',
-            'end_at.*' => 'date|before_or_equal:' . today() . '|nullable',
+            'end_at.*' => 'date|after_or_equal:start_at.*|nullable',
         ];
     }
 

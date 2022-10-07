@@ -22,8 +22,14 @@
         @endif
         
         @if ($errors->any())
-            @dump($errors)
-            <div class="alert alert-danger text-center">Update failed! Please check the form again to see error(s).</div>
+            <div class="alert alert-danger">
+                <p class="text-center">Update failed! Please check the form again to see error(s).</p>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         
 		<div class="submit-page">
