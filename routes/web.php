@@ -45,6 +45,7 @@ Route::middleware(['auth', 'role:Freelance', 'verified'])->name('freelance.')->c
 // Customer
 Route::middleware(['auth', 'role:Customer'])->name('customer.')->controller(JobsController::class)->group(function(){
     Route::get('my-jobs/dashboard', 'index')->name('index');
+    Route::get('my-jobs/{job}/applications', 'showApplications')->name('applications');
     
 });
 

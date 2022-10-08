@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Freelance extends Model
 {
     use HasFactory;
 
     protected $fillable = ['profession', 'location', 'description', 'salary'];
+
+    // ACCESSORS
+    public function getAppliedAtAttribute()
+    {
+        return date_format(Carbon::make($this->pivot->created_at), 'F d, Y');
+    }
 
     public function user()
     {

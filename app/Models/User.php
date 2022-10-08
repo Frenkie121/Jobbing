@@ -43,18 +43,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'role_id' => 'integer',
     ];
 
     // ACCESSORS
-    // public function getRole(int $role)
-    // {
-    //     return match($role) {
-    //         1 => 'Admin',
-    //         2 => 'Customer',
-    //         3 => 'Freelance'
-    //     };
-    // }
 
     // MUTATORS
     public function setPasswordAttribute($value)

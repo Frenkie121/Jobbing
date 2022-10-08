@@ -16,7 +16,8 @@
 	<!-- Table -->
 	<div class="sixteen columns">
 
-		<p class="margin-bottom-25">Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.</p>
+        <p>Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.</p>
+        <a href="{{ route('jobs.create') }}" class="button">Add Job</a>
 
 		<table class="manage-table responsive-table">
 
@@ -45,7 +46,7 @@
                     <td>{{ $job->deadline }}</td>
                     <td class="centered">
                         @if ($job->freelances->isNotEmpty())
-                            <a href="#" class="button">Show ($job->freelances->count())</a>
+                            <a href="{{ route('customer.applications', $job->slug) }}" class="button">Show ({{ $job->freelances->count() }})</a>
                         @else
                             -
                         @endif
@@ -73,7 +74,7 @@
 		</table>
 
 		<br>
-		<a href="{{ route('jobs.create') }}" class="button">Add Job</a>
+		{{-- <a href="{{ route('jobs.create') }}" class="button">Add Job</a> --}}
 
 	</div>
 

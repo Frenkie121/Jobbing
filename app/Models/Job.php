@@ -67,6 +67,11 @@ class Job extends Model
         return date_format(Carbon::make($value), 'F d, Y');
     }
 
+    public function getAppliedAtAttribute()
+    {
+        return date_format(Carbon::make($this->pivot->created_at), 'F d, Y');
+    }
+
     // MUTATORS
     /**
      * Generate slug attribute from title
@@ -96,7 +101,9 @@ class Job extends Model
 
     public function freelances()
     {
-        return $this->belongsToMany(Freelance::class)->withPivot(['is_hired', 'created_at']);
+        return $this->belongsToMany(Freelance::class)
+                    ->withPivot(['is_hired', 'created_at'])
+                    ->orderByPivot('created_at', 'DESC');
     }
 
     public function statuses()

@@ -32,7 +32,7 @@
 			@forelse ($jobs as $job)
                 <tr>
                     <td class="title"><a href="#">{{ $job->title }}</a></td>
-                    <td>{{ date_format(Carbon\Carbon::make($job->pivot->created_at), 'F d, Y') }}</td>
+                    <td>{{ $job->applied_at }}</td>
                     <td class="centered">
                         @if ($job->hasHired())
                             @if ($freelance->hasBeenHired($job->id))
