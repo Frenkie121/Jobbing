@@ -38,7 +38,6 @@ class Job extends Model
 
     public function getDescriptionAttribute($value)
     {
-        // substr($value, 0, 250) . '...'
         return Str::limit($value, 250);
     }
 

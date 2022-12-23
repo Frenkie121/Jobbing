@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('subtitle', 'Dashboard')
+@section('subtitle', 'Job applications')
 
 @section('content')
 

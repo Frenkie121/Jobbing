@@ -13,4 +13,14 @@ class Status extends Model
     {
         return $this->belongsToMany(Job::class);
     }
+
+    public function getColorAttribute()
+    {
+        return match($this->attributes['id']){
+            1 => 'gold',
+            2 => 'red',
+            3 => '#53b427',
+            4 => '#00dbff'
+        };
+    }
 }

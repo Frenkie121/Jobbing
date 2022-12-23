@@ -8,12 +8,12 @@
     <div id="titlebar" class="photo-bg" style="background: url(images/job-page-photo.jpg)">
         <div class="container">
             <div class="ten columns">
-                {{-- <span><a href="browse-jobs.html">Restaurant / Food Service</a></span> --}}
+                <span>{{ $job->subCategory->category->name }} / <a href="{{ route('category.jobs', $job->slug) }}">{{ $job->subCategory->name }}</a></span>
                 <h2>{{ ucwords($job->title) }} <span class="{{ $job->type_class }}">{{ $job->type }}</span></h2>
             </div>
     
             <div class="six columns">
-                <a href="#" class="button white"><i class="fa fa-star"></i> Bookmark This Job</a>
+                <button class="button" style="background-color: {{ $job->statuses->last()->color }}; margin-left: 55px" aria-disabled="true"> {{ $job->statuses->last()->name }}</button>
             </div>
     
         </div>
@@ -129,7 +129,9 @@
                         </li>
                     </ul>
     
-                    <x-job.apply-button slug="{{ $job->slug }}" id="{{ $job->id }}" />
+                    @if ((auth()->check() && auth()->user()->role_id === 3) || !auth()->check())
+                        <x-job.apply-button slug="{{ $job->slug }}" id="{{ $job->id }}" />
+                    @endif
     
                 </div>
     

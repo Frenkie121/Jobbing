@@ -11,11 +11,6 @@ use App\Models\{Job, SubCategory, Tag};
 
 class JobController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('role:2')->except(['index', 'show']);
-    // }
-
     /**
      * Display a listing of the resource.
      *
