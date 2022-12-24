@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:Freelance', 'verified'])->name('freelance.')->c
 Route::middleware(['auth', 'role:Customer'])->name('customer.')->controller(JobsController::class)->group(function(){
     Route::get('my-jobs/dashboard', 'index')->name('index');
     Route::get('my-jobs/{job}/applications', 'showApplications')->name('applications');
+
+    Route::patch('my-jobs/{job}/applications/{freelance}/select', 'select')->name('select')->middleware('throttle:2,1');
     
 });
 

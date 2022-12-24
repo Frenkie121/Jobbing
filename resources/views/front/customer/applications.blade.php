@@ -64,11 +64,29 @@
                         
                         <!-- Buttons -->
                         <div class="buttons">
-                            @if ($freelance->pivot->is_hired)
-                                <a href="#one-1" class="button gray app-link"><i class="fa fa-pencil"></i> Edit</a>
+                            @if ($job->hasHired())
+                                @if ($freelance->pivot->is_hired)
+                                    @if ($job->ends_at)
+                                        <a href="#one-1" class="button gray app-link"><i class="fa fa-pencil"></i> Edit</a>
+                                    @endif
+                                    <a href="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" class="button gray app-link"
+                                        onclick="event.preventDefault();
+                                        document.querySelector('#select{{ $freelance->id }}').submit();"><i class="fa fa-times"></i> Unselect</a>
+                                    <form action="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" method="post" style="display: none" id="select{{ $freelance->id }}">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
+                                @endif
+                            @else
+                                <a href="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" class="button gray app-link"
+                                    onclick="event.preventDefault();
+                                    document.querySelector('#select{{ $freelance->id }}').submit();"><i class="fa fa-check"></i> Select</a>
+                                <form action="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" method="post" style="display: none" id="select{{ $freelance->id }}">
+                                    @csrf
+                                    @method('PATCH')
+                                </form>
                             @endif
-                            {{-- <a href="#two-1" class="button gray app-link"><i class="fa fa-sticky-note"></i> Add Note</a> --}}
-                            <a href="#" class="button gray app-link"><i class="fa fa-check"></i> Accept</a>
+                            
                             <a href="#three-1" class="button gray app-link"><i class="fa fa-plus-circle"></i> Show Details</a>
                         </div>
                         <div class="clearfix"></div>
