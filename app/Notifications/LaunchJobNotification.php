@@ -2,13 +2,13 @@
 
 namespace App\Notifications;
 
-use App\Models\{Freelance, Job};
+use App\Models\Job;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SelectApplicantNotification extends Notification implements ShouldQueue
+class LaunchJobNotification extends Notification
 {
     use Queueable;
 
@@ -19,8 +19,6 @@ class SelectApplicantNotification extends Notification implements ShouldQueue
      */
     public function __construct(
         protected Job $job,
-        protected Freelance $freelance,
-        protected bool $selected,
     ){}
 
     /**
@@ -42,17 +40,29 @@ class SelectApplicantNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $selection = $this->selected ? 'selected' : 'unselected';
         return (new MailMessage)
-                    ->subject("Job Applicant Alert")
+                    ->subject("Job Launched")
                     ->greeting("Hello {$notifiable->name},")
                     ->when($notifiable->role_id === 2, fn(MailMessage $mail)
-                        => $mail->line("You have {$selection} {$this->freelance->user->name} for job {$this->job->title}.")
+                        => $mail->line("You have just launched the job {$this->job->title}.")
                     )
                     ->when($notifiable->role_id === 3, fn(MailMessage $mail) 
-                        => $mail->line("You have been {$selection} for job {$this->job->title}.")
+                        => $mail->line("The job {$this->job->title} has just started.")
                     )
                     ->action('Go to Dashboard', $notifiable->role_id === 2 ? route('customer.index') : route('freelance.index'))
                     ->line('Thank you for using Jobbing!');
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            //
+        ];
     }
 }

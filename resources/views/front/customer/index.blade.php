@@ -53,8 +53,25 @@
                     </td>
                     <td class="action">
                         <a href="#"><i class="fa fa-pencil"></i> Edit</a>
-                        @if ($job->starts_at)
-                            <a href="#"><i class="fa fa-check "></i> Mark Filled</a>
+                        @if ($job->hasHired())
+                            @if (!$job->starts_at)
+                                <a href="{{ route('customer.job.launch', $job->slug) }}"
+                                    onclick="event.preventDefault();
+                                    document.querySelector('#launch{{ $job->id }}').submit();"><i class="fa fa-hourglass-start"></i> Launch</a>
+                                <form action="{{ route('customer.job.launch', $job->slug) }}" method="post" style="display: none" id="launch{{ $job->id }}">
+                                    @csrf
+                                    @method('PATCH')
+                                </form>
+                            @else
+                                <a href="{{ route('jobs.destroy', $job->slug) }}"
+                                    onclick="event.preventDefault();
+                                    document.querySelector('#d{{ $job->id }}lete').submit();"><i class="fa fa-check"></i> Mark Filled</a>
+                                <form action="{{ route('jobs.destroy', $job->slug) }}" method="post" style="display: none" id="d{{ $job->id }}lete">
+                                    @csrf
+                                    @method('PATCH')
+                                </form>
+                                <a href="#"><i class="fa fa-comment"></i> Open Chat</a>
+                            @endif
                         @else
                             <a href="{{ route('jobs.destroy', $job->slug) }}" class="delete"
                                 onclick="event.preventDefault();
@@ -62,7 +79,6 @@
                             <form action="{{ route('jobs.destroy', $job->slug) }}" method="post" style="display: none" id="d{{ $job->id }}lete">
                                 @csrf
                                 @method('DELETE')
-                                {{-- <button type="submit"><i class="fa fa-remove"></i> Delete</button> --}}
                             </form>
                         @endif
                     </td>
