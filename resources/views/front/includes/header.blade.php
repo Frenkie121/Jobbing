@@ -16,17 +16,6 @@
                     <li><a href="{{ route('jobs.index') }}" @if(Str::contains(Route::currentRouteName(), 'jobs')) id="current" @endif>Jobs</a></li>
                     
                     <li><a href="{{ route('categories') }}" @if(Route::is('categories')) id="current" @endif>Categories</a></li>
-
-                    <li><a href="#">For Employers</a>
-                        <ul>
-                            <li><a href="add-job.html">Add Job</a></li>
-                            <li><a href="manage-jobs.html">Manage Jobs</a></li>
-                            <li><a href="manage-applications.html">Manage Applications</a></li>
-                            <li><a href="browse-resumes.html">Browse Resumes</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="blog.html">Blog</a></li>
                 </ul>
 
                 <ul class="float-right">

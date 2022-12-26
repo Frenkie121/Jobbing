@@ -120,6 +120,11 @@ class Job extends Model
         return $this->hasMany(Requirement::class);
     }
 
+    public function conversation()
+    {
+        return $this->hasOne(Conversation::class);
+    }
+
     // CUSTOM
     public function hasHired()
     {

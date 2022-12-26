@@ -16,8 +16,14 @@
 	<!-- Table -->
 	<div class="sixteen columns">
 
-        <p>Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.</p>
-        <a href="{{ route('jobs.create') }}" class="button">Add Job</a>
+        <div class="container">
+            <div class="eight columns">
+                <a href="{{ route('jobs.create') }}" class="button">Add Job</a>
+            </div>
+            {{-- <div class="eight columns">
+                <a href="{{ route('jobs.create') }}" class="button">Add Job</a>
+            </div> --}}
+        </div>
 
 		<table class="manage-table responsive-table">
 
@@ -32,7 +38,7 @@
 
 			@forelse ($jobs as $job)
                 <tr>
-                    <td class="title"><a href="#">{{ $job->title }}</a></td>
+                    <td class="title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></td>
                     <td class="centered">
                         @if ($job->ends_at)
                             <i class="fa fa-check"></i>
@@ -70,7 +76,7 @@
                                     @csrf
                                     @method('PATCH')
                                 </form>
-                                <a href="#"><i class="fa fa-comment"></i> Open Chat</a>
+                                <a href="{{ route('job.chat') }}"><i class="fa fa-comment"></i> Open Chat</a>
                             @endif
                         @else
                             <a href="{{ route('jobs.destroy', $job->slug) }}" class="delete"

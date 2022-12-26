@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Customer\JobsController;
 use App\Http\Controllers\Front\Freelance\{JobsController as FreelanceJobsController, ProfileController};
-use App\Http\Controllers\Front\{JobController, MainController};
+use App\Http\Controllers\Front\{ChatController, JobController, MainController};
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +53,9 @@ Route::middleware(['auth', 'role:Customer'])->name('customer.')->controller(Jobs
     Route::patch('my-jobs/{job}/applications/{freelance}/select', 'select')->name('select')->middleware('throttle:2,1');
     
 });
+
+Route::get('chat', [ChatController::class, 'index'])->name('job.chat');
+Route::post('chat', [ChatController::class, 'store'])->name('job.chat.store');
 
 // Authentication
 require __DIR__ . DIRECTORY_SEPARATOR . 'auth.php';

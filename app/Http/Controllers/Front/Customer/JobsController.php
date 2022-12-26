@@ -69,7 +69,7 @@ class JobsController extends Controller
         $job->save();
         $job->statuses()->attach(3);
 
-        // Notification::send([auth()->user(), $job->freelances()->wherePivot('is_hired', true)->first()->user], new LaunchJobNotification($job));
+        Notification::send([auth()->user(), $job->freelances()->wherePivot('is_hired', true)->first()->user], new LaunchJobNotification($job));
 
         flash("The job {$job->title} has been successfully launched.", 'success');
 
