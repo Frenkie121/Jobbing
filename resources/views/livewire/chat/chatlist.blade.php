@@ -4,7 +4,7 @@
             <div class="input-group">
                 <input aria-describedby="basic-addon1" class="form-control border-right-0" placeholder="Search..." type="text">
                 <div class="input-group-prepend">
-                    <span class="btn btn-success">
+                    <span class="input-group-text">
                         <i class="fa fa-search"></i>
                     </span>
                 </div>
@@ -15,7 +15,7 @@
                 @php
                     $last_message = $conversation->messages->last();
                 @endphp
-                <div class="app-chat-sidebar-user-item">
+                <div wire:key="{{ time() . $conversation->id }}" class="app-chat-sidebar-user-item">
                     <a href="javascript:void(0)" wire:click="$emit('chatConversationSelected', {{ $conversation }}, {{ $this->getUserInstance($conversation)->id }})">
                         <div class="d-flex {{ ($selectedConversation && $selectedConversation->id === $conversation->id) ? 'active' : '' }} conv-item">
                             <div>

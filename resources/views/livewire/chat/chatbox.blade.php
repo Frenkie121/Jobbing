@@ -1,5 +1,5 @@
 <div class="app-chat-msg">
-    <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom" style="height: 92px;">
+    <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
         @if ($selectedConversation)
             <div class="app-chat-msg-title">
                 <div class="row">
@@ -45,17 +45,18 @@
     <div class="scrollbar scroll_dark app-chat-msg-chat p-4">
         @if ($selectedConversation)
             @forelse ($messages as $date => $messagePerDay)
-                <div class="text-center py-4">
-                    <h6>{{ Carbon\Carbon::make($date)->diffForHumans() }}</h6>
+                <div class="text-center py-1">
+                    <h6>{{ $date }}</h6>
                 </div>
                 @foreach ($messagePerDay as $message)
-                    <div class="chat {{ $message->sender_id === auth()->id() ? 'chat-left justify-content-end' : '' }}">
+                    <div wire:key="{{ time() . $message->id }}" class="chat {{ $message->sender_id === auth()->id() ? 'chat-left justify-content-end' : '' }}">
                         <div class="chat-msg">
-                            <div class="chat-msg-content justify-content-between">
-                                <p>{{ $message->content }}</p>
-                                <div class="row {{ $message->sender_id === auth()->id() ? 'text-white' : '' }}">
-                                    <div class="">{{ $message->created_at->format('m:i a') }}</div>
-                                    <span><i class="zmdi zmdi-check-all mr-2"></i></span>
+                            <div class="row chat-msg-content d-flex">
+                                <div class=""><p>{{ $message->content }}</p></div>
+                                <div class="mx-3"></div>
+                                <div class="ml-auto text-right mt-1 {{ $message->sender_id === auth()->id() ? 'text-white' : '' }}">
+                                    <span style="font-size: 9pt;">{{ $message->created_at->format('m:i A') }}</span>
+                                    <span><i class="zmdi zmdi-check-all ml-1 "></i></span>
                                 </div>
                             </div>
                         </div>
@@ -72,4 +73,31 @@
             </div>
         @endif
     </div>
+
+    @push('js')
+        <script>
+            window.addEventListener('rowChatToBottom', event => {
+                $('.app-chat-msg-chat').scrollTop($('.app-chat-msg-chat')[0].scrollHeight);
+            });
+
+            $('.app-chat-msg-chat').on('scroll', function () { 
+                var top = $('.app-chat-msg-chat').scrollTop();
+                if (top === 0) {
+                    window.livewire.emit('loadmore');
+                }
+            });
+        </script>
+
+        <script>
+            window.addEventListener('updatedHeight', event => {
+                let oldHeight = event.detail.height;
+                let newHeight = $('.app-chat-msg-chat').scrollTop(newHeight - oldHeight);
+
+                window.livewire.emit('updateHeight', {
+                    height: height,
+                });
+            });
+        </script>
+    @endpush
+
 </div>

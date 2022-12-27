@@ -11,30 +11,59 @@ class Chatbox extends Component
     public $receiver;
     public $messages;
     public $perPage = 10;
+    public $height;
 
-    protected $listeners = ['loadConversation'];
+    protected $listeners = [
+        'loadConversation',
+        'pushNewMessage',
+        'loadmore',
+        // 'updateHeight',
+    ];
 
     public function loadConversation(Conversation $conversation, User $receiver)
     {
         $this->selectedConversation = $conversation;
         $this->receiver = $receiver;
-        $messages_count = $conversation->messages->count();
-        $this->messages = Message::query()
-                            ->where('conversation_id', $this->selectedConversation->id)
-                            ->get()
-                            ->skip($messages_count - $this->perPage)
-                            ->take($this->perPage)
-                            ->groupBy('created_at')
-                            ->all();
+        
+        $this->messages = $this->messages($this->perPage);
 
         $this->dispatchBrowserEvent('chatSelected');
     }
 
-    // public function clearSelectedConversation()
-    // {
-    //     $this->reset('selectedConversation');
-    //     $this->emitTo('chat.chatlist', 'selectionCleared', $this->selectedConversation);
-    // }
+    public function pushNewMessage($messageId)
+    {
+        $this->loadConversation($this->selectedConversation, $this->receiver);
+
+        $this->dispatchBrowserEvent('rowChatToBottom');
+    }
+
+    public function loadmore()
+    {
+        $this->perPage += 10;
+        $this->messages = $this->messages($this->perPage);
+
+        $height = $this->height;
+        $this->dispatchBrowserEvent('updatedHeight', ($height));
+    }
+
+    public function updateHeight($height)
+    {
+        $this->height = $height;
+    }
+
+    public function messages(int $perPage)
+    {
+        $messages_count = $this->selectedConversation->messages->count();
+        return Message::query()
+                        ->where('conversation_id', $this->selectedConversation->id)
+                        ->get()
+                        ->skip($messages_count - $perPage)
+                        ->take($perPage)
+                        ->groupBy(function($message) {
+                            return $message->created_at->format('Y-m-d');
+                        })
+                        ->all();
+    }
 
     public function render()
     {

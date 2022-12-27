@@ -10,7 +10,10 @@ class Chatlist extends Component
     public $conversations;
     public $selectedConversation = null;
 
-    protected $listeners = ['chatConversationSelected'];
+    protected $listeners = [
+        'chatConversationSelected',
+        'refresh' => '$refresh',
+    ];
 
     public function mount()
     {

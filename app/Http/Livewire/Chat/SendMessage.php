@@ -32,6 +32,9 @@ class SendMessage extends Component
         ]);
 
         $this->reset('message');
+
+        $this->emitTo('chat.chatbox', 'pushNewMessage', $message->id);
+        $this->emitTo('chat.chatlist', 'refresh');
     }
 
     public function render()
