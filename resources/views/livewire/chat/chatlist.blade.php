@@ -20,7 +20,7 @@
                         <div class="d-flex {{ ($selectedConversation && $selectedConversation->id === $conversation->id) ? 'active' : '' }} conv-item">
                             <div>
                                 <div class="bg-img">
-                                    <img class="img-fluid" src="{{ asset('assets/images/avatar-placeholder.png') }}" alt="user">
+                                    <img class="img-fluid" src="https://ui-avatars.com/api/?name={{ $this->getUserInstance($conversation)->name }}" alt="user">
                                     <i class="bg-img-status bg-success"></i>
                                 </div>
                             </div>

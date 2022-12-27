@@ -7,7 +7,7 @@
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     </a>
                     <div class="bg-img">
-                        <img class="img-fluid" src="{{ asset('assets/images/avatar-placeholder.png') }}" alt="user">
+                        <img class="img-fluid" src="https://ui-avatars.com/api/?name={{ $receiver->name }}" alt="user">
                     </div>
                     <div>
                         <h4 class="mb-0 mt-2 ml-2">{{ $receiver->name }}</h4>

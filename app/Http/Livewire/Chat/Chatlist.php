@@ -10,7 +10,7 @@ class Chatlist extends Component
     public $conversations;
     public $selectedConversation = null;
 
-    protected $listeners = ['chatConversationSelected', 'selectionCleared'];
+    protected $listeners = ['chatConversationSelected'];
 
     public function mount()
     {
@@ -38,12 +38,13 @@ class Chatlist extends Component
         $this->selectedConversation = $conversation;
 
         $this->emitTo('chat.chatbox', 'loadConversation', $this->selectedConversation, $receiver);
+        $this->emitTo('chat.send-message', 'updateSendMessage', $this->selectedConversation, $receiver);
     }
 
-    public function selectionCleared()
-    {
-        $this->reset($this->selectedConversation);
-    }
+    // public function selectionCleared()
+    // {
+    //     $this->reset($this->selectedConversation);
+    // }
 
     public function render()
     {

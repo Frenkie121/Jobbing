@@ -30,11 +30,11 @@ class Chatbox extends Component
         $this->dispatchBrowserEvent('chatSelected');
     }
 
-    public function clearSelectedConversation()
-    {
-        $this->reset('selectedConversation');
-        $this->emitTo('chat.chatlist', 'selectionCleared', $this->selectedConversation);
-    }
+    // public function clearSelectedConversation()
+    // {
+    //     $this->reset('selectedConversation');
+    //     $this->emitTo('chat.chatlist', 'selectionCleared', $this->selectedConversation);
+    // }
 
     public function render()
     {
