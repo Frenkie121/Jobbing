@@ -1,4 +1,4 @@
-<div class="col-xl-4 col-xxl-3">
+<div class="col-xl-4 col-xxl-3 chat-list">
     <div class="app-chat-sidebar border-right border-md-n h-100">
         <div class="app-chat-sidebar-search px-4 pb-4 pt-4 border-bottom">
             <div class="input-group">
@@ -16,8 +16,8 @@
                     $last_message = $conversation->messages->last();
                 @endphp
                 <div class="app-chat-sidebar-user-item">
-                    <a href="javascript:void(0)">
-                        <div class="d-flex active">
+                    <a href="javascript:void(0)" wire:click="$emit('chatConversationSelected', {{ $conversation }}, {{ $this->getUserInstance($conversation)->id }})">
+                        <div class="d-flex {{ ($selectedConversation && $selectedConversation->id === $conversation->id) ? 'active' : '' }} conv-item">
                             <div>
                                 <div class="bg-img">
                                     <img class="img-fluid" src="{{ asset('assets/images/avatar-placeholder.png') }}" alt="user">
@@ -25,9 +25,9 @@
                                 </div>
                             </div>
                             <div>
-                                <h5 class="mb-0">{{ $this->getUserInstance($conversation) }}</h5>
-                                <p class="text-white">
-                                    <span><i class="zmdi zmdi-check-all mr-2"></i></span>
+                                <h5 class="mb-0">{{ $this->getUserInstance($conversation)->name }}</h5>
+                                <p class="{{ (!$selectedConversation || $selectedConversation && $selectedConversation->id !== $conversation->id) ? 'text-dark' : 'text-white' }}">
+                                    <span><i class="zmdi zmdi-check-all ml-2"></i></span>
                                     @if ($conversation->messages->isNotEmpty())
                                         <span title="{{ $last_message->content }}">{{ $last_message->last_message }}</span>
                                     @else
@@ -35,7 +35,7 @@
                                     @endif
                                 </p>
                                 <div class="d-xl-none">
-                                    <small>Just now</small>
+                                    <small>{{ $last_message?->last_time }}</small>
                                     <span class="badge badge-success">5</span>
                                 </div>
                             </div>

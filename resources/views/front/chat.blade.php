@@ -69,4 +69,29 @@
     @livewireScripts
     <script src="{{ asset('assets/chat/js/vendors.js') }}"></script>
     <script src="{{ asset('assets/chat/js/app.js') }}"></script>
+
+    <script>
+        window.addEventListener('chatSelected', event => {
+            if (window.innerWidth < 768) {
+                $('.chat-list').hide();
+                $('.app-chat-type').hide();
+                $('.app-chat-msg').show();
+            }
+        });
+
+        $(window).resize(function () { 
+            if (window.innerWidth > 768) {
+                $('.chat-list').show();
+                $('.app-chat-msg').show();
+                $('.app-chat-type').show();
+            }
+        });
+
+        $(document).on('click', '.back', function () {
+            $('.chat-list').show();
+            $('.app-chat-msg').hide();
+            $('.app-chat-type').hide();
+            $('.conv-item').removeClass('active');
+        });
+    </script>
 @endpush
