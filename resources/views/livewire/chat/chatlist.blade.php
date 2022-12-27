@@ -11,52 +11,42 @@
             </div>
         </div>
         <div class="app-chat-sidebar-user scrollbar scroll_dark">
-            <div class="app-chat-sidebar-user-item">
-                <a href="javascript:void(0)">
-                    <div class="d-flex active">
-                        <div>
-                            <div class="bg-img">
-                                <img class="img-fluid" src="{{ asset('assets/images/avatar-placeholder.png') }}" alt="user">
-                                <i class="bg-img-status bg-success"></i>
+            @foreach ($conversations as $conversation)
+                @php
+                    $last_message = $conversation->messages->last();
+                @endphp
+                <div class="app-chat-sidebar-user-item">
+                    <a href="javascript:void(0)">
+                        <div class="d-flex active">
+                            <div>
+                                <div class="bg-img">
+                                    <img class="img-fluid" src="{{ asset('assets/images/avatar-placeholder.png') }}" alt="user">
+                                    <i class="bg-img-status bg-success"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <h5 class="mb-0">Demian Leyon</h5>
-                            <p class="text-white"><span><i class="zmdi zmdi-check mr-2"></i></span>I like you</p>
-                            <div class="d-xl-none">
-                                <small>Just now</small>
+                            <div>
+                                <h5 class="mb-0">{{ $this->getUserInstance($conversation) }}</h5>
+                                <p class="text-white">
+                                    <span><i class="zmdi zmdi-check-all mr-2"></i></span>
+                                    @if ($conversation->messages->isNotEmpty())
+                                        <span title="{{ $last_message->content }}">{{ $last_message->last_message }}</span>
+                                    @else
+                                        <i>No message yet.</i>
+                                    @endif
+                                </p>
+                                <div class="d-xl-none">
+                                    <small>Just now</small>
+                                    <span class="badge badge-success">5</span>
+                                </div>
+                            </div>
+                            <div class="ml-auto text-right d-none d-xl-block">
+                                <small>{{ $last_message?->last_time }}</small>
                                 <span class="badge badge-success">5</span>
                             </div>
                         </div>
-                        <div class="ml-auto text-right d-none d-xl-block">
-                            <small>Just now</small>
-                            <span class="badge badge-success">5</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="app-chat-sidebar-user-item">
-                <a href="javascript:void(0)">
-                    <div class="d-flex">
-                        <div class="bg-img">
-                            <img class="img-fluid" src="{{ asset('assets/images/avatar-placeholder.png') }}" alt="user">
-                            <i class="bg-img-status bg-success"></i>
-                        </div>
-                        <div>
-                            <h5 class="mb-0">Smithmin Leyon </h5>
-                            <p><span><i class="zmdi zmdi-check-all mr-2 text-primary"></i></span>Thanks</p>
-                            <div class="d-xl-none">
-                                <small>30 Aug</small>
-                                <span class="badge badge-success">35</span>
-                            </div>
-                        </div>
-                        <div class="ml-auto text-right d-none d-xl-block">
-                            <small>30 Aug</small>
-                            <span class="badge badge-success">35</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>
