@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained();
             $table->unsignedBigInteger('sender_id');
             $table->foreign('sender_id')->references('id')->on('users');
             $table->unsignedBigInteger('receiver_id');

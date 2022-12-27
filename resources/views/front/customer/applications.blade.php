@@ -16,12 +16,12 @@
         <div class="sixteen columns">
 
             <p class="margin-bottom-25" style="float: left;">The job applications for <strong><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></strong> are listed below.</p>
-            <strong><a href="#" class="download-csv">Download CSV</a></strong>
+            {{-- <strong><a href="#" class="download-csv">Download CSV</a></strong> --}}
 
         </div>
 
 
-        <div class="eight columns">
+        {{-- <div class="eight columns">
             <!-- Select -->
             <select data-placeholder="Filter by status" class="chosen-select-no-single">
                 <option value="">Filter by status</option>
@@ -42,7 +42,7 @@
                 <option value="rating">Sort by rating</option>
             </select>
             <div class="margin-bottom-35"></div>
-        </div>
+        </div> --}}
 
 
         <!-- Applications -->
@@ -69,13 +69,17 @@
                                     @if ($job->ends_at)
                                         <a href="#one-1" class="button gray app-link"><i class="fa fa-pencil"></i> Edit</a>
                                     @endif
-                                    <a href="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" class="button gray app-link"
-                                        onclick="event.preventDefault();
-                                        document.querySelector('#select{{ $freelance->id }}').submit();"><i class="fa fa-times"></i> Unselect</a>
-                                    <form action="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" method="post" style="display: none" id="select{{ $freelance->id }}">
-                                        @csrf
-                                        @method('PATCH')
-                                    </form>
+                                    @if (!$job->starts_at)
+                                        <a href="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" class="button gray app-link"
+                                            onclick="event.preventDefault();
+                                            document.querySelector('#select{{ $freelance->id }}').submit();"><i class="fa fa-times"></i> Unselect</a>
+                                        <form action="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" method="post" style="display: none" id="select{{ $freelance->id }}">
+                                            @csrf
+                                            @method('PATCH')
+                                        </form>
+                                    @else
+                                        <a href="javascript:void(0)" class="button"><i class="fa fa-check"></i> Hired</a>
+                                    @endif
                                 @endif
                             @else
                                 <a href="{{ route('customer.select', ['freelance' => $freelance->id, 'job' => $job->slug]) }}" class="button gray app-link"

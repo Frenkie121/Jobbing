@@ -65,11 +65,23 @@ class JobsController extends Controller
      */
     public function launch(Job $job)
     {
-        $job->starts_at = now();
-        $job->save();
+        // Update status
         $job->statuses()->attach(3);
 
-        Notification::send([auth()->user(), $job->freelances()->wherePivot('is_hired', true)->first()->user], new LaunchJobNotification($job));
+        // Create conversation chat
+        $hired_user = $job->freelances()->wherePivot('is_hired', true)->first()->user;
+        $auth_id = auth()->id();
+        $conversation = User::query()->find($auth_id)->conversations()->create([
+            'sender_id' => $auth_id,
+            'receiver_id' => $hired_user->id,
+        ]);
+
+        // Update Job resource
+        $job->starts_at = now();
+        $job->conversation_id = $conversation->id;
+        $job->save();
+
+        Notification::send([auth()->user(), $hired_user], new LaunchJobNotification($job));
 
         flash("The job {$job->title} has been successfully launched.", 'success');
 

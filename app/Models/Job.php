@@ -122,7 +122,7 @@ class Job extends Model
 
     public function conversation()
     {
-        return $this->hasOne(Conversation::class);
+        return $this->belongsTo(Conversation::class);
     }
 
     // CUSTOM

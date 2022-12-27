@@ -9,7 +9,10 @@ class Conversation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sender_id', 'receiver_id'];
+    protected $fillable = [
+        'sender_id', 
+        'receiver_id',
+    ];
 
     public function messages()
     {
@@ -23,6 +26,6 @@ class Conversation extends Model
 
     public function job()
     {
-        return $this->belongsTo(Job::class);
+        return $this->hasOne(Job::class);
     }
 }
