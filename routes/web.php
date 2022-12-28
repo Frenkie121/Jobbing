@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:Customer'])->name('customer.')->controller(Jobs
     
 });
 
-Route::get('chat', [ChatController::class, 'index'])->name('job.chat')->middleware('auth');
+Route::get('chat', [ChatController::class, 'index'])->name('job.chat');
 Route::post('chat', [ChatController::class, 'store'])->name('job.chat.store');
 
 // Authentication

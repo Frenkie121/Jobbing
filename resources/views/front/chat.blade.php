@@ -61,7 +61,6 @@
 @endsection
 
 @push('js')
-    @livewireScripts
     <script src="{{ asset('assets/chat/js/vendors.js') }}"></script>
     <script src="{{ asset('assets/chat/js/app.js') }}"></script>
 
@@ -104,4 +103,6 @@
                 }
             });
     </script>
+
+    @livewireScripts
 @endpush

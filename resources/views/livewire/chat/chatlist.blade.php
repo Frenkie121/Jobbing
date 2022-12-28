@@ -27,7 +27,9 @@
                             <div>
                                 <h5 class="mb-0">{{ $this->getUserInstance($conversation)->name }}</h5>
                                 <p class="{{ (!$selectedConversation || $selectedConversation && $selectedConversation->id !== $conversation->id) ? 'text-dark' : 'text-white' }}">
-                                    <span><i class="zmdi zmdi-check-all ml-2"></i></span>
+                                    @if ($conversation->messages->last()->sender_id === auth()->id())
+                                        <span><i class="zmdi zmdi-check-all ml-2"></i></span>
+                                    @endif
                                     @if ($conversation->messages->isNotEmpty())
                                         <span title="{{ $last_message->content }}">{{ $last_message->last_message }}</span>
                                     @else

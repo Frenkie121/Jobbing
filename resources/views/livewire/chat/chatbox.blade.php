@@ -49,14 +49,18 @@
                     <h6>{{ $date }}</h6>
                 </div>
                 @foreach ($messagePerDay as $message)
-                    <div wire:key="{{ time() . $message->id }}" class="chat {{ $message->sender_id === auth()->id() ? 'chat-left justify-content-end' : '' }}">
+                    <div wire:key="{{ time() . $message->id }}" class="chat {{ $message->sender_id === auth()->id() ? 'chat-left justify-content-end' : '' }}"
+                        {{-- style="width: 80%; max-width: 80%; max-width: max-content" --}}
+                    >
                         <div class="chat-msg">
                             <div class="row chat-msg-content d-flex">
                                 <div class=""><p>{{ $message->content }}</p></div>
                                 <div class="mx-3"></div>
                                 <div class="ml-auto text-right mt-1 {{ $message->sender_id === auth()->id() ? 'text-white' : '' }}">
                                     <span style="font-size: 9pt;">{{ $message->created_at->format('m:i A') }}</span>
-                                    <span><i class="zmdi zmdi-check-all ml-1 "></i></span>
+                                    @if ($message->sender_id === auth()->id())
+                                        <span><i class="zmdi zmdi-check-all ml-1 "></i></span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
