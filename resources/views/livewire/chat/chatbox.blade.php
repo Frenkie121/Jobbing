@@ -49,7 +49,7 @@
                     <h6>{{ $date }}</h6>
                 </div>
                 @foreach ($messagePerDay as $message)
-                    <div wire:key="{{ time() . $message->id }}" class="chat {{ $message->sender_id === auth()->id() ? 'chat-left justify-content-end' : '' }}"
+                    <div class="chat {{ $message->sender_id === auth()->id() ? 'chat-left justify-content-end' : '' }}"
                         {{-- style="width: 80%; max-width: 80%; max-width: max-content" --}}
                     >
                         <div class="chat-msg">

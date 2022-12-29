@@ -11,6 +11,7 @@ class SendMessage extends Component
     public $selectedConversation;
     public $receiver;
     public $message;
+    public $newMessage;
 
     protected $listeners = [
         'updateSendMessage',
@@ -29,13 +30,13 @@ class SendMessage extends Component
             return null;
         }
 
-        $message = $this->selectedConversation->messages()->create([
+        $this->newMessage = $this->selectedConversation->messages()->create([
             'sender_id' => auth()->id(),
             'receiver_id' => $this->receiver->id,
             'content' => $this->message
         ]);
 
-        $this->emitTo('chat.chatbox', 'pushNewMessage', $message->id);
+        $this->emitTo('chat.chatbox', 'pushNewMessage', $this->newMessage->id);
         $this->emitTo('chat.chatlist', 'refresh');
 
         $this->emitSelf('dispatchMessageSent');
@@ -43,7 +44,7 @@ class SendMessage extends Component
 
     public function dispatchMessageSent()
     {
-        broadcast(new ChatMessageEvent(auth()->user(), $this->message, $this->selectedConversation, $this->receiver));
+        broadcast(new ChatMessageEvent(auth()->user(), $this->newMessage, $this->selectedConversation, $this->receiver));
         
         $this->reset('message');
     }

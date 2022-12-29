@@ -38,7 +38,7 @@ class Chatbox extends Component
 
     public function pushNewMessage($messageId)
     {
-        $this->loadConversation($this->selectedConversation, $this->receiver);
+        $this->messages = $this->messages($this->perPage);
 
         $this->dispatchBrowserEvent('rowChatToBottom');
     }
@@ -52,9 +52,23 @@ class Chatbox extends Component
         $this->dispatchBrowserEvent('updatedHeight', ($height));
     }
 
-    public function updateHeight($height)
+    // public function updateHeight($height)
+    // {
+    //     $this->height = $height;
+    // }
+
+    public function broadcastedMessageReceived($event)
     {
-        $this->height = $height;
+        $brodcasted_message = Message::query()->find($event['message_id']);
+
+        if ($this->selectedConversation) {
+            if ($this->selectedConversation->id === (int) $event['conversation_id']) {
+                $brodcasted_message->read = true;
+                $brodcasted_message->save();
+
+                $this->pushNewMessage($brodcasted_message->id);
+            }
+        }
     }
 
     public function messages(int $perPage)
@@ -69,11 +83,6 @@ class Chatbox extends Component
                             return $message->created_at->format('Y-m-d');
                         })
                         ->all();
-    }
-
-    public function broadcastedMessageReceived($event)
-    {
-        dd($event);
     }
 
     public function render()

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\{Conversation, User};
+use App\Models\{Conversation, Message, User};
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -20,7 +20,7 @@ class ChatMessageEvent implements ShouldBroadcast
      */
     public function __construct(
         protected User $sender,
-        protected string $message,
+        protected Message $message,
         protected Conversation $conversation,
         protected User $receiver,
     ){}
@@ -29,7 +29,7 @@ class ChatMessageEvent implements ShouldBroadcast
     {
         return [
             'user_id' => $this->sender->id,
-            'message' => $this->message,
+            'message_id' => $this->message->id,
             'conversation_id' => $this->conversation->id,
             'receiver_id' => $this->receiver->id,
         ];
