@@ -92,7 +92,7 @@
             $('.chat-list').show();
             $('.app-chat-msg').hide();
             $('.app-chat-type').hide();
-            $('.conv-item').removeClass('active');
+            // $('.conv-item').removeClass('active');
         });
 
         

@@ -15,7 +15,8 @@ class SendMessage extends Component
 
     protected $listeners = [
         'updateSendMessage',
-        'dispatchMessageSent'
+        'dispatchMessageSent',
+        // 'selectionCleared',
     ];
 
     public function updateSendMessage(Conversation $conversation, User $receiver)
@@ -48,6 +49,12 @@ class SendMessage extends Component
         
         $this->reset('message');
     }
+    
+    // public function selectionCleared()
+    // {
+    //     $this->selectedConversation = null;
+    //     $this->receiver = null;
+    // }
 
     public function render()
     {

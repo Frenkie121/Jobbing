@@ -13,6 +13,7 @@ class Chatlist extends Component
     protected $listeners = [
         'chatConversationSelected',
         'refresh' => '$refresh',
+        'selectionCleared',
     ];
 
     public function mount()
@@ -44,10 +45,10 @@ class Chatlist extends Component
         $this->emitTo('chat.send-message', 'updateSendMessage', $this->selectedConversation, $receiver);
     }
 
-    // public function selectionCleared()
-    // {
-    //     $this->reset($this->selectedConversation);
-    // }
+    public function selectionCleared()
+    {
+        $this->selectedConversation = null;
+    }
 
     public function render()
     {

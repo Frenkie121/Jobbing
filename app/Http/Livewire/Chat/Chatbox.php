@@ -52,13 +52,15 @@ class Chatbox extends Component
         $this->dispatchBrowserEvent('updatedHeight', ($height));
     }
 
-    // public function updateHeight($height)
-    // {
-    //     $this->height = $height;
-    // }
+    public function updateHeight($height)
+    {
+        $this->height = $height;
+    }
 
     public function broadcastedMessageReceived($event)
     {
+        $this->emitTo('chat.chatlist', 'refresh');
+
         $brodcasted_message = Message::query()->find($event['message_id']);
 
         if ($this->selectedConversation) {

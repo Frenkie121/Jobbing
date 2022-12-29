@@ -102,6 +102,12 @@
                 });
             });
         </script>
+
+        <script>    
+            $(document).on('click', '.back', function () {
+                window.livewire.emit('selectionCleared');
+            });
+        </script>
     @endpush
 
 </div>
