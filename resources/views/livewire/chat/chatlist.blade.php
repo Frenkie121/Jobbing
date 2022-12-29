@@ -14,6 +14,7 @@
             @foreach ($conversations as $conversation)
                 @php
                     $last_message = $conversation->messages->last();
+                    $unread_messages = $conversation->messages->where('read', false)->where('receiver_id', auth()->id());
                 @endphp
                 <div wire:key="{{ time() . $conversation->id }}" class="app-chat-sidebar-user-item">
                     <a href="javascript:void(0)" wire:click="$emit('chatConversationSelected', {{ $conversation }}, {{ $this->getUserInstance($conversation)->id }})">
@@ -27,8 +28,8 @@
                             <div>
                                 <h5 class="mb-0">{{ $this->getUserInstance($conversation)->name }}</h5>
                                 <p class="{{ (!$selectedConversation || $selectedConversation && $selectedConversation->id !== $conversation->id) ? 'text-dark' : 'text-white' }}">
-                                    @if ($last_message->sender_id === auth()->id())
-                                        <span><i class="zmdi zmdi-check{{ $last_message->read ? '-all text-primary' : '' }} ml-2"></i></span>
+                                    @if ($last_message?->sender_id === auth()->id())
+                                        <span><i class="zmdi zmdi-check{{ $last_message?->read ? '-all text-primary' : '' }} ml-2"></i></span>
                                     @endif
                                     @if ($conversation->messages->isNotEmpty())
                                         <span title="{{ $last_message->content }}">{{ $last_message->last_message }}</span>
@@ -38,12 +39,20 @@
                                 </p>
                                 <div class="d-xl-none">
                                     <small>{{ $last_message?->last_time }}</small>
-                                    <span class="badge badge-success">5</span>
+                                    @if ($unread_messages->isNotEmpty())
+                                        <span class="badge badge-danger">
+                                            {{ $unread_messages->count() }}
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="ml-auto text-right d-none d-xl-block">
                                 <small>{{ $last_message?->last_time }}</small>
-                                <span class="badge badge-success">5</span>
+                                @if ($unread_messages->isNotEmpty())
+                                    <span class="badge badge-danger">
+                                        {{ $unread_messages->count() }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </a>

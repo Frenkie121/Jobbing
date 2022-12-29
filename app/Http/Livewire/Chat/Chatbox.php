@@ -32,7 +32,6 @@ class Chatbox extends Component
 
     public function loadConversation(Conversation $conversation, User $receiver)
     {
-        // $this->onSelect = true;
         $this->selectedConversation = $conversation;
         $this->receiver = $receiver;
         

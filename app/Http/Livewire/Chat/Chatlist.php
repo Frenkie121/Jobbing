@@ -16,19 +16,6 @@ class Chatlist extends Component
         'selectionCleared',
     ];
 
-    public function mount()
-    {
-        $auth_id = auth()->id();
-        $this->conversations = Conversation::orderByDesc(Message::select('created_at')
-                                    ->whereColumn('messages.conversation_id', 'conversations.id')
-                                    ->latest()
-                                    ->take(1)
-                                )->where('sender_id', $auth_id)
-                                ->orWhere('receiver_id', $auth_id)
-                                ->with(['messages', 'receiver',])
-                                ->get();
-    }
-
     public function getUserInstance(Conversation $conversation)
     {
         return auth()->id() === $conversation->sender_id ?
@@ -52,6 +39,15 @@ class Chatlist extends Component
 
     public function render()
     {
+        $auth_id = auth()->id();
+        $this->conversations = Conversation::orderByDesc(Message::select('created_at')
+                                    ->whereColumn('messages.conversation_id', 'conversations.id')
+                                    ->latest()
+                                    ->take(1)
+                                )->where('sender_id', $auth_id)
+                                ->orWhere('receiver_id', $auth_id)
+                                ->with(['messages', 'receiver',])
+                                ->get();
         return view('livewire.chat.chatlist');
     }
 }
