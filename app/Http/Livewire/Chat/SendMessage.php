@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Chat;
 
 use App\Events\ChatMessageEvent;
-use App\Models\{Conversation, Message, User};
+use App\Models\{Conversation, User};
 use Livewire\Component;
 
 class SendMessage extends Component
